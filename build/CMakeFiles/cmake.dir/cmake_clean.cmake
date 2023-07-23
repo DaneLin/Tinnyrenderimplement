@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/cmake.dir/main.cpp.obj"
   "CMakeFiles/cmake.dir/main.cpp.obj.d"
+  "CMakeFiles/cmake.dir/model.cpp.obj"
+  "CMakeFiles/cmake.dir/model.cpp.obj.d"
   "CMakeFiles/cmake.dir/tgaimage.cpp.obj"
   "CMakeFiles/cmake.dir/tgaimage.cpp.obj.d"
   "cmake.exe"
