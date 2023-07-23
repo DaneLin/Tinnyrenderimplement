@@ -12,6 +12,16 @@ Model *model = NULL;
 const int width = 800;
 const int height = 800;
 
+Vec3f barycentric(const Vec2i* pts, const Vec2i p)
+{
+    Vec3f pos = Vec3f(pts[1].x - pts[0].x, pts[2].x - pts[0].x, pts[0].x - p.x ) ^ Vec3f(pts[1].y - pts[0].y, pts[2].y - pts[0].y, pts[0].y -p.y );
+
+    if (std::abs(pos.z) < 1) return Vec3f(-1, 1, 1);
+
+    return Vec3f(1.f - (pos.x + pos.y) / (float)pos.z, (float)pos.x / pos.z, (float)pos.y / pos.z);
+
+}
+
 void line(int x0, int y0, int x1, int y1, TGAImage &image, TGAColor color)
 {
     // step size for 0.1
@@ -132,6 +142,7 @@ void line(int x0, int y0, int x1, int y1, TGAImage &image, TGAColor color)
     // }
 }
 
+//传统检测点方法
 void triangle(Vec2i vert[], TGAImage &image, TGAColor color)
 {
     /**
@@ -189,7 +200,26 @@ void triangle(Vec2i vert[], TGAImage &image, TGAColor color)
             image.set(x, y, color);
         }
     }
+}
 
+//使用重点坐标和包围盒方式优化的检测方式
+void triangle_with_barycentric(const Vec2i *pts, TGAImage &image, TGAColor color)
+{
+    int min_x = std::min({pts[0].x, pts[1].x, pts[2].x});
+    int max_x = std::max({pts[0].x, pts[1].x, pts[2].x});
+    int min_y = std::min({pts[0].y, pts[1].y, pts[2].y});
+    int max_y = std::max({pts[0].y, pts[1].y, pts[2].y});
+
+    for (int x = min_x; x <= max_x; x++)
+    {
+        for (int y = min_y; y <= max_y; y++)
+        {
+            Vec3f barycentric_pos = barycentric(pts, Vec2i(x, y));
+
+            if (barycentric_pos.x < 0 || barycentric_pos.y < 0 || barycentric_pos.z < 0) continue;
+            image.set(x, y, color);
+        }
+    }
 
 }
 
@@ -228,17 +258,49 @@ int main(int argc, char **argv)
     delete model;
     */
 
+    /*
+    
     TGAImage image(200, 200, TGAImage::RGB);
     Vec2i t0[3] = {Vec2i(10, 70), Vec2i(50, 160), Vec2i(70, 80)};
     Vec2i t1[3] = {Vec2i(180, 50), Vec2i(150, 1), Vec2i(70, 180)};
     Vec2i t2[3] = {Vec2i(180, 150), Vec2i(120, 160), Vec2i(130, 180)};
 
+    //使用最原始的检测方式
+   
     triangle(t0, image, red);
     triangle(t1, image, white);
     triangle(t2, image, green);
 
+    //使用优化过的重心坐标方式
+    // triangle_with_barycentric(t0, image, red);
+    // triangle_with_barycentric(t1, image, white);
+    // triangle_with_barycentric(t2, image, green);
+    */
+    
+    model = new Model("D:\\Github\\TinyRendererImplement\\obj/african_head.obj");
+    TGAImage image(width, height, TGAImage::RGB);
+
+    Vec3f light_dir(0, 0, -1);
+    
+    for (int i = 0; i < model->nfaces(); i++)
+    {
+        std::vector<int> face = model->face(i);
+        Vec2i screen_coords[3];
+        Vec3f world_coords[3];
+        for (int j = 0; j < 3; j++)
+        {
+            Vec3f v = model->vert(face[j]);
+            screen_coords[j] = Vec2i((v.x + 1.) * width / 2., (v.y + 1.) * height / 2.);
+            world_coords[j] = v;
+        }
+        Vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
+        n.normalize();
+        float intensity = n * light_dir;
+        triangle_with_barycentric(screen_coords, image, TGAColor(intensity * 255, intensity * 255, intensity * 255, 255));
+    }
+
     image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
-    image.write_tga_file("output3.tga");
+    image.write_tga_file("output_flat_light.tga");
 
     return 0;
 }
