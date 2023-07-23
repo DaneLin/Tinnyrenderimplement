@@ -4,7 +4,9 @@
 CMakeFiles/cmake.dir/main.cpp.obj: D:/Github/TinyRendererImplement/main.cpp \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed/limits.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed/syslimits.h \
+  D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/algorithm \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward/binders.h \
+  D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/algorithmfwd.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/alloc_traits.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/allocator.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/basic_ios.h \
@@ -41,19 +43,24 @@ CMakeFiles/cmake.dir/main.cpp.obj: D:/Github/TinyRendererImplement/main.cpp \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/ptr_traits.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/range_access.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/std_abs.h \
+  D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_algo.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_algobase.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_bvector.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_construct.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_function.h \
+  D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_heap.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_iterator.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_iterator_base_funcs.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_iterator_base_types.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_pair.h \
+  D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_relops.h \
+  D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_tempbuf.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_uninitialized.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_vector.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/streambuf.tcc \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/streambuf_iterator.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stringfwd.h \
+  D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/uniform_int_dist.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/vector.tcc \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cctype \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cerrno \
@@ -78,6 +85,7 @@ CMakeFiles/cmake.dir/main.cpp.obj: D:/Github/TinyRendererImplement/main.cpp \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ios \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/iosfwd \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/istream \
+  D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/limits \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/new \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ostream \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/stdexcept \
@@ -87,6 +95,7 @@ CMakeFiles/cmake.dir/main.cpp.obj: D:/Github/TinyRendererImplement/main.cpp \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/system_error \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/type_traits \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/typeinfo \
+  D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/utility \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/vector \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/atomic_word.h \
   D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/basic_file.h \
@@ -442,13 +451,17 @@ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-min
 
 D:/Github/TinyRendererImplement/main.cpp:
 
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/algorithmfwd.h:
+
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/exception_defines.h:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed/limits.h:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed/syslimits.h:
 
-D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/basic_ios.h:
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/basic_string.h:
+
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/algorithm:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/range_access.h:
 
@@ -458,35 +471,33 @@ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-min
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/allocator.h:
 
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/basic_ios.h:
+
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/basic_ios.tcc:
-
-D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdlib:
-
-D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/basic_string.h:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/hash_bytes.h:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/basic_string.tcc:
 
-D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/clocale:
-
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cwctype:
+
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/clocale:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/char_traits.h:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/codecvt.h:
 
-D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/postypes.h:
-
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cwchar:
 
-D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdio:
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/postypes.h:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/concept_check.h:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/cpp_type_traits.h:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/functional_hash.h:
+
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/uniform_int_dist.h:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/_mingw_off_t.h:
 
@@ -522,6 +533,8 @@ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-min
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/locale_facets.tcc:
 
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_algo.h:
+
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cctype:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_bvector.h:
@@ -533,6 +546,8 @@ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-min
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/move.h:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/ostream_insert.h:
+
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_tempbuf.h:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/predefined_ops.h:
 
@@ -546,8 +561,6 @@ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-min
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/std_abs.h:
 
-D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cmath:
-
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_iterator.h:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_algobase.h:
@@ -558,7 +571,15 @@ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/inc
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_construct.h:
 
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_heap.h:
+
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_iterator_base_types.h:
+
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/ctype_base.h:
+
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_relops.h:
+
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/limits:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_uninitialized.h:
 
@@ -570,7 +591,13 @@ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-min
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cerrno:
 
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cmath:
+
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdint:
+
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdio:
+
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cstdlib:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/debug/assertions.h:
 
@@ -614,6 +641,8 @@ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-min
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/typeinfo:
 
+D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/utility:
+
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/vector:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/atomic_word.h:
@@ -629,8 +658,6 @@ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-min
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/c++locale.h:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/cpu_defines.h:
-
-D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/ctype_base.h:
 
 D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32/bits/ctype_inline.h:
 

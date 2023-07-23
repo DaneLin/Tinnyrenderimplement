@@ -140,4 +140,13 @@ CMakeFiles/cmake.dir/main.cpp.obj: \
  D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/cmath \
  D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/math.h \
  D:\Github\TinyRendererImplement\model.h \
- D:\Github\TinyRendererImplement\geometry.h
+ D:\Github\TinyRendererImplement\geometry.h \
+ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/algorithm \
+ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/utility \
+ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_relops.h \
+ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_algo.h \
+ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/algorithmfwd.h \
+ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_heap.h \
+ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_tempbuf.h \
+ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/uniform_int_dist.h \
+ D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/limits
