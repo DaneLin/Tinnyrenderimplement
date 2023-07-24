@@ -8,11 +8,12 @@
 const TGAColor white = TGAColor(255, 255, 255, 255);
 const TGAColor red = TGAColor(255, 0, 0, 255);
 const TGAColor green = TGAColor(0, 255, 0, 0);
+const TGAColor blue = TGAColor(0, 0, 255, 255);
 Model *model = NULL;
 const int width = 800;
 const int height = 800;
 
-Vec3f barycentric(const Vec2i* pts, const Vec2i p)
+Vec3f barycentric(const Vec3f* pts, const Vec2i p)
 {
     Vec3f pos = Vec3f(pts[1].x - pts[0].x, pts[2].x - pts[0].x, pts[0].x - p.x ) ^ Vec3f(pts[1].y - pts[0].y, pts[2].y - pts[0].y, pts[0].y -p.y );
 
@@ -203,6 +204,8 @@ void triangle(Vec2i vert[], TGAImage &image, TGAColor color)
 }
 
 //使用重点坐标和包围盒方式优化的检测方式
+/*
+
 void triangle_with_barycentric(const Vec2i *pts, TGAImage &image, TGAColor color)
 {
     int min_x = std::min({pts[0].x, pts[1].x, pts[2].x});
@@ -218,6 +221,55 @@ void triangle_with_barycentric(const Vec2i *pts, TGAImage &image, TGAColor color
 
             if (barycentric_pos.x < 0 || barycentric_pos.y < 0 || barycentric_pos.z < 0) continue;
             image.set(x, y, color);
+        }
+    }
+
+}
+*/
+
+void rasterizer(Vec2i p0,  Vec2i p1, TGAImage& image, const TGAColor &color, int *ybuffer)
+{
+    if (p0.x > p1.x) {
+        std::swap(p0, p1);
+    }
+
+    float tot_len = (p1.x - p0.x) + 1;
+    for (int x = p0.x; x <= p1.x; x++)
+    {
+        float t = (x - p0.x) / tot_len;
+        int y = p0.y * (1. - t) + p1.y * t;
+        if (ybuffer[x] < y) {
+            ybuffer[x] = y;
+            for (int j = 0; j < 16; j++)
+                image.set(x, j, color);
+        }
+    }
+}
+
+void rasterizer3D(Vec3f* pts, TGAImage &image, TGAColor color, int *zbuffer)
+{
+    //传进来三角形的三个点
+    float min_x = std::min({pts[0].x, pts[1].x, pts[2].x});
+    float max_x = std::max({pts[0].x, pts[1].x, pts[2].x});
+    float min_y = std::min({pts[0].y, pts[1].y, pts[2].y});
+    float max_y = std::max({pts[0].y, pts[1].y, pts[2].y});
+
+    for (int x = min_x; x <= max_x; x++)
+    {
+        for (int y = min_y; y <= max_y; y++)
+        {
+            Vec3f barycentric_pos = barycentric(pts, Vec2i(x, y));
+
+            if (barycentric_pos.x < 0 || barycentric_pos.y < 0 || barycentric_pos.z < 0) continue;
+            float z;
+            z += pts[0].z * barycentric_pos.x;
+            z += pts[1].z * barycentric_pos.y;
+            z += pts[2].z * barycentric_pos.z;
+            if (z > zbuffer[(int)(x + y * width)])
+            {
+                zbuffer[(int)(x + y * width)] = z;
+                image.set(x, y, color);
+            }
         }
     }
 
@@ -277,30 +329,80 @@ int main(int argc, char **argv)
     // triangle_with_barycentric(t2, image, green);
     */
     
-    model = new Model("D:\\Github\\TinyRendererImplement\\obj/african_head.obj");
-    TGAImage image(width, height, TGAImage::RGB);
+    // model = new Model("D:\\Github\\TinyRendererImplement\\obj/african_head.obj");
+    // TGAImage image(width, height, TGAImage::RGB);
 
-    Vec3f light_dir(0, 0, -1);
+    // Vec3f light_dir(0, 0, -1);
     
+    // for (int i = 0; i < model->nfaces(); i++)
+    // {
+    //     std::vector<int> face = model->face(i);
+    //     Vec2i screen_coords[3];
+    //     Vec3f world_coords[3];
+    //     for (int j = 0; j < 3; j++)
+    //     {
+    //         Vec3f v = model->vert(face[j]);
+    //         screen_coords[j] = Vec2i((v.x + 1.) * width / 2., (v.y + 1.) * height / 2.);
+    //         world_coords[j] = v;
+    //     }
+    //     Vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
+    //     n.normalize();
+    //     float intensity = n * light_dir;
+    //     triangle_with_barycentric(screen_coords, image, TGAColor(intensity * 255, intensity * 255, intensity * 255, 255));
+    // }
+
+    // image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
+    // image.write_tga_file("output_flat_light.tga");
+
+    //Lesson3 
+    // two dimension situation
+    /*
+    TGAImage render (width, 16, TGAImage::RGB);
+    int ybuffer[width];
+    for (int i = 0; i < width; i++)
+    {
+        ybuffer[i] = std::numeric_limits<int>::min();
+    }
+
+    rasterizer(Vec2i(20, 34), Vec2i(744, 400), render, red, ybuffer);
+    rasterizer(Vec2i(120, 434), Vec2i(444, 400), render, green, ybuffer);
+    rasterizer(Vec2i(330, 463), Vec2i(594, 200), render, blue, ybuffer);
+
+    render.flip_vertically();
+    render.write_tga_file("renderer.tga");
+    */
+
+    // 3D
+    TGAImage image = TGAImage(width, height, TGAImage::RGB);
+    int *zBuffer = new int[width * height];
+
+    for (int i = 0 ; i < width * height; i++)
+    {
+        zBuffer[i] = std::numeric_limits<int>::min();
+    }
+
+    model = new Model("D:\\Github\\TinyRendererImplement\\obj/african_head.obj");
+
     for (int i = 0; i < model->nfaces(); i++)
     {
         std::vector<int> face = model->face(i);
-        Vec2i screen_coords[3];
-        Vec3f world_coords[3];
+        Vec3f verts[3];
         for (int j = 0; j < 3; j++)
         {
-            Vec3f v = model->vert(face[j]);
-            screen_coords[j] = Vec2i((v.x + 1.) * width / 2., (v.y + 1.) * height / 2.);
-            world_coords[j] = v;
+            Vec3f v0 = model->vert(face[j]);
+            int x0 = (v0.x + 1.) * width / 2.;
+            int y0 = (v0.y + 1.) * height / 2.;
+            verts[j].x = x0;
+            verts[j].y = y0;
+            verts[j].z = v0.z;
         }
-        Vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
-        n.normalize();
-        float intensity = n * light_dir;
-        triangle_with_barycentric(screen_coords, image, TGAColor(intensity * 255, intensity * 255, intensity * 255, 255));
-    }
+        rasterizer3D(verts, image, TGAColor(rand() % 255, rand() % 255, rand() % 255, 255), zBuffer);
+    }  
 
     image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
-    image.write_tga_file("output_flat_light.tga");
+    image.write_tga_file("output_lesson3.tga");
+    delete model;
+
 
     return 0;
 }
