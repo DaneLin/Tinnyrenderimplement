@@ -10,8 +10,8 @@ const TGAColor red = TGAColor(255, 0, 0, 255);
 const TGAColor green = TGAColor(0, 255, 0, 0);
 const TGAColor blue = TGAColor(0, 0, 255, 255);
 Model *model = NULL;
-const int width = 800;
-const int height = 800;
+const int width = 1024;
+const int height = 1024;
 
 Vec3f barycentric(const Vec3f* pts, const Vec2i p)
 {
@@ -246,7 +246,7 @@ void rasterizer(Vec2i p0,  Vec2i p1, TGAImage& image, const TGAColor &color, int
     }
 }
 
-void rasterizer3D(Vec3f* pts, TGAImage &image, TGAColor color, int *zbuffer)
+void rasterizer3D(Vec3f* pts, TGAImage &image, int *zbuffer)
 {
     //传进来三角形的三个点
     float min_x = std::min({pts[0].x, pts[1].x, pts[2].x});
@@ -261,13 +261,16 @@ void rasterizer3D(Vec3f* pts, TGAImage &image, TGAColor color, int *zbuffer)
             Vec3f barycentric_pos = barycentric(pts, Vec2i(x, y));
 
             if (barycentric_pos.x < 0 || barycentric_pos.y < 0 || barycentric_pos.z < 0) continue;
-            float z;
-            z += pts[0].z * barycentric_pos.x;
-            z += pts[1].z * barycentric_pos.y;
-            z += pts[2].z * barycentric_pos.z;
-            if (z > zbuffer[(int)(x + y * width)])
+            Vec3f p(x, y, 0);
+            for (int i = 0; i < 3; i++)
             {
-                zbuffer[(int)(x + y * width)] = z;
+                Vec3f tmp = barycentric_pos ^ pts[i];
+                p = p + tmp;
+            }
+            if (p.z > zbuffer[(int)(x + y * width)])
+            {
+                zbuffer[(int)(x + y * width)] = p.z;
+                TGAColor color = image.get((int)p.x, (int)p.y);
                 image.set(x, y, color);
             }
         }
@@ -382,7 +385,7 @@ int main(int argc, char **argv)
     }
 
     model = new Model("D:\\Github\\TinyRendererImplement\\obj/african_head.obj");
-
+    image.read_tga_file("D:\\Github\\TinyRendererImplement\\obj/african_head.obj");
     for (int i = 0; i < model->nfaces(); i++)
     {
         std::vector<int> face = model->face(i);
@@ -396,7 +399,7 @@ int main(int argc, char **argv)
             verts[j].y = y0;
             verts[j].z = v0.z;
         }
-        rasterizer3D(verts, image, TGAColor(rand() % 255, rand() % 255, rand() % 255, 255), zBuffer);
+        rasterizer3D(verts, image,zBuffer);
     }  
 
     image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
