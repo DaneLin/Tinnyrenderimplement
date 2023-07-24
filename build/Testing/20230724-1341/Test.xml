@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Win32-mingw32-make"
+	BuildStamp="20230724-1341-Experimental"
+	Name="DESKTOP-R88RH5F"
+	Generator="ctest-3.27.0-rc4"
+	CompilerName="D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/bin/g++.exe"
+	CompilerVersion="8.1.0"
+	OSName="Windows"
+	Hostname="DESKTOP-R88RH5F"
+	OSRelease=" Personal"
+	OSVersion=" (Build 19045)"
+	OSPlatform="AMD64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="15"
+	ModelID="0"
+	ProcessorCacheSize="64"
+	NumberOfLogicalCPU="16"
+	NumberOfPhysicalCPU="8"
+	TotalVirtualMemory="23414"
+	TotalPhysicalMemory="15734"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="2894"
+	>
+	<Testing>
+		<StartDateTime>Jul 24 23:17 [NON-UTF-8-BYTE-0xD6]й[NON-UTF-8-BYTE-0xFA][NON-UTF-8-BYTE-0xB1][NON-UTF-8-BYTE-0xEA]׼ʱ[NON-UTF-8-BYTE-0xBC][NON-UTF-8-BYTE-0xE4]</StartDateTime>
+		<StartTestTime>1690211835</StartTestTime>
+		<TestList/>
+		<EndDateTime>Jul 24 23:17 [NON-UTF-8-BYTE-0xD6]й[NON-UTF-8-BYTE-0xFA][NON-UTF-8-BYTE-0xB1][NON-UTF-8-BYTE-0xEA]׼ʱ[NON-UTF-8-BYTE-0xBC][NON-UTF-8-BYTE-0xE4]</EndDateTime>
+		<EndTestTime>1690211835</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>
