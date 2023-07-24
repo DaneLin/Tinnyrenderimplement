@@ -262,6 +262,7 @@ void rasterizer3D(Vec3f* pts, TGAImage &image, int *zbuffer)
 
             if (barycentric_pos.x < 0 || barycentric_pos.y < 0 || barycentric_pos.z < 0) continue;
             Vec3f p(x, y, 0);
+            
             for (int i = 0; i < 3; i++)
             {
                 Vec3f tmp = barycentric_pos ^ pts[i];
@@ -270,7 +271,7 @@ void rasterizer3D(Vec3f* pts, TGAImage &image, int *zbuffer)
             if (p.z > zbuffer[(int)(x + y * width)])
             {
                 zbuffer[(int)(x + y * width)] = p.z;
-                TGAColor color = image.get((int)p.x, (int)p.y);
+                TGAColor color = image.get((int)p.x * image.get_width(), (int)p.y * image.get_height());
                 image.set(x, y, color);
             }
         }
@@ -385,7 +386,7 @@ int main(int argc, char **argv)
     }
 
     model = new Model("D:\\Github\\TinyRendererImplement\\obj/african_head.obj");
-    image.read_tga_file("D:\\Github\\TinyRendererImplement\\obj/african_head.obj");
+    image.read_tga_file("D:\\Github\\TinyRendererImplement\\obj/african_head_diffuse.tga");
     for (int i = 0; i < model->nfaces(); i++)
     {
         std::vector<int> face = model->face(i);
