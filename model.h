@@ -7,7 +7,11 @@
 class Model {
 private:
 	std::vector<Vec3f> verts_;
-	std::vector<std::vector<int> > faces_;
+	std::vector<Vec2f> uvs_;
+	std::vector<Vec3f> norms_;
+	std::vector<std::vector<int>> faces_;//每个面是如何组成的，对应的v，vt，vn
+	std::vector<std::vector<int>> fuvs_;
+	std::vector<std::vector<int>> fnorms_; 
 public:
 	Model(const char *filename);
 	~Model();
