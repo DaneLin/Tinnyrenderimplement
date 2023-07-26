@@ -46,9 +46,17 @@ Model::Model(const char *filename) : verts_(), faces_() {
             fuvs_.push_back(vt);
             fnorms_.push_back(vn);
         } else if (!line.compare(0, 2, "vt")) {
-            iss >> trash;
+            //std::cout << line << std::endl;
+            iss >> trash >> trash;
+            //std::cout << trash << std::endl;
             Vec2f vt;
-            for (int i = 0; i < 2; i++) iss >> vt.raw[i];
+            for (int i = 0; i < 3; i++) 
+            {
+                iss >> vt.raw[i];
+                if (i == 3) iss >> trash;
+                //std::cout << vt.raw[i] << ' ';
+            }
+            //std::cout << std::endl;
             uvs_.push_back(vt);
         } else if (!line.compare(0, 2, "vn")) {
             iss >> trash;
