@@ -4,6 +4,7 @@
 #include "model.h"
 #include "geometry.h"
 #include <algorithm>
+#include <iostream>
 
 const TGAColor white = TGAColor(255, 255, 255, 255);
 const TGAColor red = TGAColor(255, 0, 0, 255);
@@ -13,7 +14,7 @@ Model *model = NULL;
 const int width = 1024;
 const int height = 1024;
 
-Vec3f barycentric(const Vec3f* pts, const Vec2i p)
+Vec3f barycentric(const Vec3f* pts, const Vec2f p)
 {
     Vec3f pos = Vec3f(pts[1].x - pts[0].x, pts[2].x - pts[0].x, pts[0].x - p.x ) ^ Vec3f(pts[1].y - pts[0].y, pts[2].y - pts[0].y, pts[0].y -p.y );
 
@@ -227,6 +228,7 @@ void triangle_with_barycentric(const Vec2i *pts, TGAImage &image, TGAColor color
 }
 */
 
+//2D情况下的光栅化
 void rasterizer(Vec2i p0,  Vec2i p1, TGAImage& image, const TGAColor &color, int *ybuffer)
 {
     if (p0.x > p1.x) {
@@ -245,6 +247,8 @@ void rasterizer(Vec2i p0,  Vec2i p1, TGAImage& image, const TGAColor &color, int
         }
     }
 }
+
+/*
 
 void rasterizer3D(Vec3f* pts, TGAImage &image, int *zbuffer)
 {
@@ -273,6 +277,56 @@ void rasterizer3D(Vec3f* pts, TGAImage &image, int *zbuffer)
                 zbuffer[(int)(x + y * width)] = p.z;
                 TGAColor color = image.get((int)p.x * image.get_width(), (int)p.y * image.get_height());
                 image.set(x, y, color);
+            }
+        }
+    }
+
+}
+*/
+
+Vec3f world_to_screen(Vec3f pt)
+{
+    float x = (pt.x + 1.) * width / 2.;
+    float y = (pt.y + 1.) * height / 2.;
+
+    return Vec3f(x, y, pt.z);
+}
+
+void texture_shading(Vec3f *pts, Vec2f *texs, TGAImage &image, TGAImage texture, float intensity, float *zBuffer)
+{
+    //首先获取对应的Bounding Box
+    float min_x = std::min({pts[0].x, pts[1].x, pts[2].x});
+    float max_x = std::max({pts[0].x, pts[1].x, pts[2].x});
+    float min_y = std::min({pts[0].y, pts[1].y, pts[2].y});
+    float max_y = std::max({pts[0].y, pts[1].y, pts[2].y});
+
+    for (int x = min_x; x <= max_x; x++)
+    {
+        for (int y = min_y; y <= min_y; y++)
+        {
+            Vec3f tmp_pt(x, y, 0);
+            Vec3f barycentric_pos = barycentric(pts, Vec2f(x, y));
+            Vec2f tex_pt(0, 0);
+            if (barycentric_pos.x < -.01 || barycentric_pos.y < -.01 || barycentric_pos.z < -.01) continue;
+            int w = texture.get_width();
+            int h = texture.get_height();
+            for (int i = 0; i < 3; i++) 
+            {
+                tmp_pt.z += barycentric_pos[i] * pts[i].z;
+                tex_pt.x += texs[i].x * barycentric_pos[i];
+                tex_pt.y += texs[i].y * barycentric_pos[i];
+                //std::cout << texs[i].x << ' ' << texs[i].y << std::endl;
+            }
+
+            w = (int)(w * tex_pt.x);
+            h = (int)(h * tex_pt.y);
+            //std::cout << tex_pt.x << ' ' << tex_pt.y << ' ' << std::endl;
+            TGAColor tex_color = texture.get(w, h);
+
+            if (zBuffer[(int)(x + y * width)] < tmp_pt.z)
+            {
+                zBuffer[(int)(x + y * width)] = tmp_pt.z;
+                image.set(tmp_pt.x, tmp_pt.y, TGAColor(tex_color.r , tex_color.g , tex_color.b , 255));
             }
         }
     }
@@ -377,6 +431,7 @@ int main(int argc, char **argv)
     */
 
     // 3D
+    /*
     TGAImage image = TGAImage(width, height, TGAImage::RGB);
     int *zBuffer = new int[width * height];
 
@@ -403,6 +458,49 @@ int main(int argc, char **argv)
         rasterizer3D(verts, image,zBuffer);
     }  
 
+    image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
+    image.write_tga_file("output_lesson3.tga");
+    delete model;
+    */
+
+   TGAImage image = TGAImage(width, height, TGAImage::RGB);
+   float *zBuffer = new float[width * height];
+   
+   for (int i = 0; i < width * height; i++) 
+   {
+        zBuffer[i] = std::numeric_limits<float>::min();
+   }
+
+   TGAImage texture = TGAImage(width, height, TGAImage::RGB);
+   texture.read_tga_file("D:\\TinyRendererImplement-1\\obj/african_head_diffuse.tga");//读取纹理
+   model = new Model("D:\\TinyRendererImplement-1\\obj/african_head.obj");//读取模型信息
+
+   Vec3f light_dir(0, 0, -1);//设置光线
+
+   for (int idx = 0; idx < model->nfaces(); idx++)
+   {
+        std::vector<int> face_verts = model->face(idx);
+        std::vector<int> tex_verts = model->fuvs(idx);
+        std::vector<int> norm_verts = model->fnorms(idx);
+        Vec3f world_coords[3];
+        Vec3f screen_coords[3];
+        Vec2f tex_coords[3];
+
+        for (int j = 0; j < 3; j++)
+        {
+            Vec3f vert_pos = model->vert(face_verts[j]);
+            world_coords[j] = vert_pos;
+            screen_coords[j] = world_to_screen(vert_pos);
+            tex_coords[j] = model->uv(tex_verts[j]);
+            //std::cout << tex_coords[j].x << ' ' << tex_coords[j].y << std::endl;
+        }
+
+        Vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
+        n.normalize();
+        float intensity = n * light_dir;
+
+        texture_shading(screen_coords, tex_coords, image, texture, intensity, zBuffer);
+   }
     image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
     image.write_tga_file("output_lesson3.tga");
     delete model;

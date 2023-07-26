@@ -4,14 +4,14 @@
 
 
 # Configuration directories and files
-SourceDirectory: D:/Github/TinyRendererImplement
-BuildDirectory: D:/Github/TinyRendererImplement/build
+SourceDirectory: D:/TinyRendererImplement-1
+BuildDirectory: D:/TinyRendererImplement-1/build
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: DESKTOP-R88RH5F
+Site: WIN-M6VL4KGLVA1
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
 BuildName: Win32-mingw32-make
@@ -27,8 +27,8 @@ SubmitInactivityTimeout:
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "C:/Program Files/CMake/bin/cmake.exe" "D:/Github/TinyRendererImplement"
-MakeCommand: C:/Program\ Files/CMake/bin/cmake.exe --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
+ConfigureCommand: "C:/Program Files/CMake/bin/cmake.exe" "D:/TinyRendererImplement-1"
+MakeCommand: C:/Program\ Files/CMake/bin/cmake.exe --build . --config "${CTEST_CONFIGURATION_TYPE}"
 DefaultCTestConfigurationType: Release
 
 # version control
@@ -63,7 +63,7 @@ UpdateOptions:
 UpdateType: git
 
 # Compiler info
-Compiler: D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/bin/g++.exe
+Compiler: D:/mingw64/mingw64/bin/g++.exe
 CompilerVersion: 8.1.0
 
 # Dynamic analysis (MemCheck)
@@ -81,7 +81,7 @@ MemoryCheckCommandOptions:
 MemoryCheckSuppressionFile: 
 
 # Coverage
-CoverageCommand: D:/Ming/x86_64-8.1.0-release-posix-seh-rt_v6-rev0/mingw64/bin/gcov.exe
+CoverageCommand: D:/mingw64/mingw64/bin/gcov.exe
 CoverageExtraFlags: -l
 
 # Testing options

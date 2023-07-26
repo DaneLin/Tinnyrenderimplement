@@ -52,10 +52,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\Github\TinyRendererImplement
+CMAKE_SOURCE_DIR = D:\TinyRendererImplement-1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\Github\TinyRendererImplement\build
+CMAKE_BINARY_DIR = D:\TinyRendererImplement-1\build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/cmake.dir/depend.make
@@ -69,46 +69,46 @@ include CMakeFiles/cmake.dir/progress.make
 include CMakeFiles/cmake.dir/flags.make
 
 CMakeFiles/cmake.dir/main.cpp.obj: CMakeFiles/cmake.dir/flags.make
-CMakeFiles/cmake.dir/main.cpp.obj: D:/Github/TinyRendererImplement/main.cpp
+CMakeFiles/cmake.dir/main.cpp.obj: D:/TinyRendererImplement-1/main.cpp
 CMakeFiles/cmake.dir/main.cpp.obj: CMakeFiles/cmake.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Github\TinyRendererImplement\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cmake.dir/main.cpp.obj"
-	D:\Ming\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmake.dir/main.cpp.obj -MF CMakeFiles\cmake.dir\main.cpp.obj.d -o CMakeFiles\cmake.dir\main.cpp.obj -c D:\Github\TinyRendererImplement\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\TinyRendererImplement-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cmake.dir/main.cpp.obj"
+	D:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmake.dir/main.cpp.obj -MF CMakeFiles\cmake.dir\main.cpp.obj.d -o CMakeFiles\cmake.dir\main.cpp.obj -c D:\TinyRendererImplement-1\main.cpp
 
 CMakeFiles/cmake.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cmake.dir/main.cpp.i"
-	D:\Ming\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Github\TinyRendererImplement\main.cpp > CMakeFiles\cmake.dir\main.cpp.i
+	D:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\TinyRendererImplement-1\main.cpp > CMakeFiles\cmake.dir\main.cpp.i
 
 CMakeFiles/cmake.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cmake.dir/main.cpp.s"
-	D:\Ming\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Github\TinyRendererImplement\main.cpp -o CMakeFiles\cmake.dir\main.cpp.s
+	D:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\TinyRendererImplement-1\main.cpp -o CMakeFiles\cmake.dir\main.cpp.s
 
 CMakeFiles/cmake.dir/model.cpp.obj: CMakeFiles/cmake.dir/flags.make
-CMakeFiles/cmake.dir/model.cpp.obj: D:/Github/TinyRendererImplement/model.cpp
+CMakeFiles/cmake.dir/model.cpp.obj: D:/TinyRendererImplement-1/model.cpp
 CMakeFiles/cmake.dir/model.cpp.obj: CMakeFiles/cmake.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Github\TinyRendererImplement\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/cmake.dir/model.cpp.obj"
-	D:\Ming\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmake.dir/model.cpp.obj -MF CMakeFiles\cmake.dir\model.cpp.obj.d -o CMakeFiles\cmake.dir\model.cpp.obj -c D:\Github\TinyRendererImplement\model.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\TinyRendererImplement-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/cmake.dir/model.cpp.obj"
+	D:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmake.dir/model.cpp.obj -MF CMakeFiles\cmake.dir\model.cpp.obj.d -o CMakeFiles\cmake.dir\model.cpp.obj -c D:\TinyRendererImplement-1\model.cpp
 
 CMakeFiles/cmake.dir/model.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cmake.dir/model.cpp.i"
-	D:\Ming\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Github\TinyRendererImplement\model.cpp > CMakeFiles\cmake.dir\model.cpp.i
+	D:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\TinyRendererImplement-1\model.cpp > CMakeFiles\cmake.dir\model.cpp.i
 
 CMakeFiles/cmake.dir/model.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cmake.dir/model.cpp.s"
-	D:\Ming\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Github\TinyRendererImplement\model.cpp -o CMakeFiles\cmake.dir\model.cpp.s
+	D:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\TinyRendererImplement-1\model.cpp -o CMakeFiles\cmake.dir\model.cpp.s
 
 CMakeFiles/cmake.dir/tgaimage.cpp.obj: CMakeFiles/cmake.dir/flags.make
-CMakeFiles/cmake.dir/tgaimage.cpp.obj: D:/Github/TinyRendererImplement/tgaimage.cpp
+CMakeFiles/cmake.dir/tgaimage.cpp.obj: D:/TinyRendererImplement-1/tgaimage.cpp
 CMakeFiles/cmake.dir/tgaimage.cpp.obj: CMakeFiles/cmake.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Github\TinyRendererImplement\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/cmake.dir/tgaimage.cpp.obj"
-	D:\Ming\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmake.dir/tgaimage.cpp.obj -MF CMakeFiles\cmake.dir\tgaimage.cpp.obj.d -o CMakeFiles\cmake.dir\tgaimage.cpp.obj -c D:\Github\TinyRendererImplement\tgaimage.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\TinyRendererImplement-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/cmake.dir/tgaimage.cpp.obj"
+	D:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmake.dir/tgaimage.cpp.obj -MF CMakeFiles\cmake.dir\tgaimage.cpp.obj.d -o CMakeFiles\cmake.dir\tgaimage.cpp.obj -c D:\TinyRendererImplement-1\tgaimage.cpp
 
 CMakeFiles/cmake.dir/tgaimage.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cmake.dir/tgaimage.cpp.i"
-	D:\Ming\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Github\TinyRendererImplement\tgaimage.cpp > CMakeFiles\cmake.dir\tgaimage.cpp.i
+	D:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\TinyRendererImplement-1\tgaimage.cpp > CMakeFiles\cmake.dir\tgaimage.cpp.i
 
 CMakeFiles/cmake.dir/tgaimage.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cmake.dir/tgaimage.cpp.s"
-	D:\Ming\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Github\TinyRendererImplement\tgaimage.cpp -o CMakeFiles\cmake.dir\tgaimage.cpp.s
+	D:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\TinyRendererImplement-1\tgaimage.cpp -o CMakeFiles\cmake.dir\tgaimage.cpp.s
 
 # Object files for target cmake
 cmake_OBJECTS = \
@@ -126,7 +126,7 @@ cmake.exe: CMakeFiles/cmake.dir/build.make
 cmake.exe: CMakeFiles/cmake.dir/linkLibs.rsp
 cmake.exe: CMakeFiles/cmake.dir/objects1.rsp
 cmake.exe: CMakeFiles/cmake.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\Github\TinyRendererImplement\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable cmake.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\TinyRendererImplement-1\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable cmake.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\cmake.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -138,6 +138,6 @@ CMakeFiles/cmake.dir/clean:
 .PHONY : CMakeFiles/cmake.dir/clean
 
 CMakeFiles/cmake.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\Github\TinyRendererImplement D:\Github\TinyRendererImplement D:\Github\TinyRendererImplement\build D:\Github\TinyRendererImplement\build D:\Github\TinyRendererImplement\build\CMakeFiles\cmake.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\TinyRendererImplement-1 D:\TinyRendererImplement-1 D:\TinyRendererImplement-1\build D:\TinyRendererImplement-1\build D:\TinyRendererImplement-1\build\CMakeFiles\cmake.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/cmake.dir/depend
 

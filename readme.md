@@ -1,6 +1,6 @@
 # TinyRendererProject
 该项目以 $TinyRenderer$ 为基础，实现一个可用的 $renderer$ 。
-$TinyRenderer$项目地址为https://github.com/ssloy/tinyrenderer。
+$TinyRenderer$项目地址为https://github.com/ssloy/tinyrenderer
 
 ## 版本日志
 20230723 首次创建并提交

@@ -301,8 +301,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/Github/TinyRendererImplement/build",
-		"source" : "D:/Github/TinyRendererImplement"
+		"build" : "D:/TinyRendererImplement-1/build",
+		"source" : "D:/TinyRendererImplement-1"
 	},
 	"version" : 
 	{

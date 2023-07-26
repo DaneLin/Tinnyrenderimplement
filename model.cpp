@@ -40,6 +40,7 @@ Model::Model(const char *filename) : verts_(), faces_() {
                 f.push_back(idx_f);
                 vt.push_back(idx_vt);
                 vn.push_back(idx_vn);
+                std::cout << idx_f << ' ' << idx_vt << ' ' << idx_vn << std::endl;
             }
             faces_.push_back(f);
             fuvs_.push_back(vt);
@@ -76,5 +77,21 @@ std::vector<int> Model::face(int idx) {
 
 Vec3f Model::vert(int i) {
     return verts_[i];
+}
+
+Vec2f Model::uv(int i) {
+    return uvs_[i];
+}
+
+Vec3f Model::norm(int i) {
+    return norms_[i];
+}
+
+std::vector<int> Model::fuvs(int idx) {
+    return fuvs_[idx];
+}
+
+std::vector<int> Model::fnorms(int idx) {
+    return fnorms_[idx];
 }
 
