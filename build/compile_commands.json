@@ -1,20 +1,20 @@
 [
 {
-  "directory": "D:/TinyRendererImplement-1/build",
-  "command": "D:\\mingw64\\mingw64\\bin\\g++.exe   -g -o CMakeFiles\\cmake.dir\\main.cpp.obj -c D:\\TinyRendererImplement-1\\main.cpp",
-  "file": "D:/TinyRendererImplement-1/main.cpp",
+  "directory": "D:/Github/TinyRendererImplement/build",
+  "command": "D:\\Ming\\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\\mingw64\\bin\\g++.exe   -g -o CMakeFiles\\cmake.dir\\main.cpp.obj -c D:\\Github\\TinyRendererImplement\\main.cpp",
+  "file": "D:/Github/TinyRendererImplement/main.cpp",
   "output": "CMakeFiles/cmake.dir/main.cpp.obj"
 },
 {
-  "directory": "D:/TinyRendererImplement-1/build",
-  "command": "D:\\mingw64\\mingw64\\bin\\g++.exe   -g -o CMakeFiles\\cmake.dir\\model.cpp.obj -c D:\\TinyRendererImplement-1\\model.cpp",
-  "file": "D:/TinyRendererImplement-1/model.cpp",
+  "directory": "D:/Github/TinyRendererImplement/build",
+  "command": "D:\\Ming\\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\\mingw64\\bin\\g++.exe   -g -o CMakeFiles\\cmake.dir\\model.cpp.obj -c D:\\Github\\TinyRendererImplement\\model.cpp",
+  "file": "D:/Github/TinyRendererImplement/model.cpp",
   "output": "CMakeFiles/cmake.dir/model.cpp.obj"
 },
 {
-  "directory": "D:/TinyRendererImplement-1/build",
-  "command": "D:\\mingw64\\mingw64\\bin\\g++.exe   -g -o CMakeFiles\\cmake.dir\\tgaimage.cpp.obj -c D:\\TinyRendererImplement-1\\tgaimage.cpp",
-  "file": "D:/TinyRendererImplement-1/tgaimage.cpp",
+  "directory": "D:/Github/TinyRendererImplement/build",
+  "command": "D:\\Ming\\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\\mingw64\\bin\\g++.exe   -g -o CMakeFiles\\cmake.dir\\tgaimage.cpp.obj -c D:\\Github\\TinyRendererImplement\\tgaimage.cpp",
+  "file": "D:/Github/TinyRendererImplement/tgaimage.cpp",
   "output": "CMakeFiles/cmake.dir/tgaimage.cpp.obj"
 }
 ]

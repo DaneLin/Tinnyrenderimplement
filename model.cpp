@@ -40,7 +40,7 @@ Model::Model(const char *filename) : verts_(), faces_() {
                 f.push_back(idx_f);
                 vt.push_back(idx_vt);
                 vn.push_back(idx_vn);
-                std::cout << idx_f << ' ' << idx_vt << ' ' << idx_vn << std::endl;
+                //std::cout << idx_f << ' ' << idx_vt << ' ' << idx_vn << std::endl;
             }
             faces_.push_back(f);
             fuvs_.push_back(vt);

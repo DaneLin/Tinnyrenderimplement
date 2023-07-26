@@ -472,8 +472,8 @@ int main(int argc, char **argv)
    }
 
    TGAImage texture = TGAImage(width, height, TGAImage::RGB);
-   texture.read_tga_file("D:\\TinyRendererImplement-1\\obj/african_head_diffuse.tga");//读取纹理
-   model = new Model("D:\\TinyRendererImplement-1\\obj/african_head.obj");//读取模型信息
+   texture.read_tga_file("../obj/african_head_diffuse.tga");//读取纹理
+   model = new Model("../obj/african_head.obj");//读取模型信息
 
    Vec3f light_dir(0, 0, -1);//设置光线
 
@@ -492,7 +492,7 @@ int main(int argc, char **argv)
             world_coords[j] = vert_pos;
             screen_coords[j] = world_to_screen(vert_pos);
             tex_coords[j] = model->uv(tex_verts[j]);
-            //std::cout << tex_coords[j].x << ' ' << tex_coords[j].y << std::endl;
+            std::cout << tex_coords[j].x << ' ' << tex_coords[j].y << std::endl;
         }
 
         Vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
