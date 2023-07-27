@@ -45,15 +45,35 @@ Model::Model(const char *filename) : verts_(), faces_() {
             faces_.push_back(f);
             fuvs_.push_back(vt);
             fnorms_.push_back(vn);
-        } else if (!line.compare(0, 2, "vt")) {
-            iss >> trash;
+        } else if (!line.compare(0, 3, "vt ")) {
+            //std::cout << line << std::endl;
+            iss >> trash >> trash;
+            //std::cout << trash << std::endl;
             Vec2f vt;
-            for (int i = 0; i < 2; i++) iss >> vt.raw[i];
+            float ftrash;
+            for (int i = 0; i < 3; i++) 
+            {
+                if (i == 2)
+                {
+                    iss >> ftrash;
+                    //std::cout << ftrash << std::endl;
+                    continue;
+                } 
+                iss >> vt.raw[i];
+                //std::cout << vt.raw[i] << ' ';
+            }
+            //std::cout << std::endl;
             uvs_.push_back(vt);
-        } else if (!line.compare(0, 2, "vn")) {
-            iss >> trash;
+        } else if (!line.compare(0, 3, "vn ")) {
+            iss >> trash >> trash;
+            //std::cout << trash << std::endl;
             Vec3f vn;
-            for (int i = 0; i < 3; i++) iss >> vn.raw[i];
+            for (int i = 0; i < 3; i++) 
+            {
+                iss >> vn.raw[i];
+                //std::cout << vn.raw[i] << ' ';
+            }
+            //std::cout << std::endl;
             norms_.push_back(vn);
         }
     }
@@ -79,8 +99,8 @@ Vec3f Model::vert(int i) {
     return verts_[i];
 }
 
-Vec2f Model::uv(int i) {
-    return uvs_[i];
+Vec2i Model::uv(int i) {
+    return Vec2i(uvs_[i].x * 1024,uvs_[i].y * 1024);
 }
 
 Vec3f Model::norm(int i) {

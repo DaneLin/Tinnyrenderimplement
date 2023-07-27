@@ -18,11 +18,12 @@ public:
 	int nverts();//获取顶点个数
 	int nfaces();//获取面的个数
 	Vec3f vert(int i);
-	Vec2f uv(int i);
+	Vec2i uv(int i);
 	Vec3f norm(int i);
 	std::vector<int> fuvs(int idx);
 	std::vector<int> fnorms(int idx);
 	std::vector<int> face(int idx);
+	
 };
 
 #endif //__MODEL_H__
