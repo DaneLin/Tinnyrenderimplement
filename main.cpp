@@ -13,6 +13,9 @@ const TGAColor blue = TGAColor(0, 0, 255, 255);
 Model *model = NULL;
 const int width = 1024;
 const int height = 1024;
+const int depth = 255;
+
+Vec3f cameraPos(0, 0, 5);
 
 Vec3f barycentric(const Vec3f* pts, const Vec2f p)
 {
@@ -336,136 +339,66 @@ void texture_shading(Vec3f *pts, Vec2i *texs, TGAImage &image, TGAImage &texture
 
 }
 
+/**
+ * params：Vec3f v
+ * 考虑到涉及三维空间中的变换，需要一个函数将v变为对应的齐次坐标
+*/
+Matrix convert_to_homo(Vec3f v)
+{
+    Matrix res(4, 1);
+    res[0][0] = v.x;
+    res[1][0] = v.y;
+    res[2][0] = v.z;
+    res[3][0] = 1;
+}
+
+Matrix viewport_trans()
+{
+    return Matrix::identity(4);
+}
+
+Matrix model_trans()
+{
+    return Matrix::identity(4);
+}
+
+Matrix proj_to_ortho()
+{
+    Matrix projection = Matrix::identity(4);
+    projection[3][2] = -1.0f / cameraPos.z;
+    return projection;
+}
+
+Matrix projection_division(Matrix m)
+{
+    m[0][0] = m[0][0] / m[3][0];
+    m[1][0] = m[1][0] / m[3][0];
+    m[2][0] = m[2][0] / m[3][0];
+    m[3][0] = 1.f;
+    return m;
+}
+
+Matrix viewportMatrix(int x, int y, int w, int h) {
+    Matrix m = Matrix::identity(4);
+    m[0][3] = x + w / 2.f;
+    m[1][3] = y + h / 2.f;
+    m[2][3] = depth / 2.f;
+
+    m[0][0] = w / 2.f;
+    m[1][1] = h / 2.f;
+    m[2][2] = depth / 2.f;
+    return m;
+}
+
+Vec3f homo_to_vert(Matrix m)
+{
+    return Vec3f(m[0][0], m[1][0], m[2][0]);
+}
+
+
 int main(int argc, char **argv)
 {
-    // TGAImage image(800, 800, TGAImage::RGB);
-    // //image.set(52, 41, red);
-    // line(13, 20, 80, 40, image, white);
-    // line(20, 13, 40, 80, image,red);
-    // line(80, 40, 13, 20,image,red);
-    // image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
-    // image.write_tga_file("output.tga");
-
-    // 加载模型
-    /*
-    model = new Model("D:\\Github\\TinyRendererImplement\\obj/african_head.obj");
-    // 设置Image
-    TGAImage image(width, height, TGAImage::RGB);
-    for (int i = 0; i < model->nfaces(); i++)
-    {
-        std::vector<int> face = model->face(i);
-        for (int j = 0; j < 3; j++)
-        {
-            Vec3f v0 = model->vert(face[j]);
-            Vec3f v1 = model->vert(face[(j + 1) % 3]);
-            int x0 = (v0.x + 1.) * width / 2.;
-            int y0 = (v0.y + 1.) * height / 2.;
-            int x1 = (v1.x + 1.) * width / 2.;
-            int y1 = (v1.y + 1.) * height / 2.;
-            line(x0, y0, x1, y1, image, white);
-        }
-    }
-
-    image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
-    image.write_tga_file("output1.tga");
-    delete model;
-    */
-
-    /*
-    
-    TGAImage image(200, 200, TGAImage::RGB);
-    Vec2i t0[3] = {Vec2i(10, 70), Vec2i(50, 160), Vec2i(70, 80)};
-    Vec2i t1[3] = {Vec2i(180, 50), Vec2i(150, 1), Vec2i(70, 180)};
-    Vec2i t2[3] = {Vec2i(180, 150), Vec2i(120, 160), Vec2i(130, 180)};
-
-    //使用最原始的检测方式
    
-    triangle(t0, image, red);
-    triangle(t1, image, white);
-    triangle(t2, image, green);
-
-    //使用优化过的重心坐标方式
-    // triangle_with_barycentric(t0, image, red);
-    // triangle_with_barycentric(t1, image, white);
-    // triangle_with_barycentric(t2, image, green);
-    */
-    
-    // model = new Model("D:\\Github\\TinyRendererImplement\\obj/african_head.obj");
-    // TGAImage image(width, height, TGAImage::RGB);
-
-    // Vec3f light_dir(0, 0, -1);
-    
-    // for (int i = 0; i < model->nfaces(); i++)
-    // {
-    //     std::vector<int> face = model->face(i);
-    //     Vec2i screen_coords[3];
-    //     Vec3f world_coords[3];
-    //     for (int j = 0; j < 3; j++)
-    //     {
-    //         Vec3f v = model->vert(face[j]);
-    //         screen_coords[j] = Vec2i((v.x + 1.) * width / 2., (v.y + 1.) * height / 2.);
-    //         world_coords[j] = v;
-    //     }
-    //     Vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
-    //     n.normalize();
-    //     float intensity = n * light_dir;
-    //     triangle_with_barycentric(screen_coords, image, TGAColor(intensity * 255, intensity * 255, intensity * 255, 255));
-    // }
-
-    // image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
-    // image.write_tga_file("output_flat_light.tga");
-
-    //Lesson3 
-    // two dimension situation
-    /*
-    TGAImage render (width, 16, TGAImage::RGB);
-    int ybuffer[width];
-    for (int i = 0; i < width; i++)
-    {
-        ybuffer[i] = std::numeric_limits<int>::min();
-    }
-
-    rasterizer(Vec2i(20, 34), Vec2i(744, 400), render, red, ybuffer);
-    rasterizer(Vec2i(120, 434), Vec2i(444, 400), render, green, ybuffer);
-    rasterizer(Vec2i(330, 463), Vec2i(594, 200), render, blue, ybuffer);
-
-    render.flip_vertically();
-    render.write_tga_file("renderer.tga");
-    */
-
-    // 3D
-    /*
-    TGAImage image = TGAImage(width, height, TGAImage::RGB);
-    int *zBuffer = new int[width * height];
-
-    for (int i = 0 ; i < width * height; i++)
-    {
-        zBuffer[i] = std::numeric_limits<int>::min();
-    }
-
-    model = new Model("D:\\Github\\TinyRendererImplement\\obj/african_head.obj");
-    image.read_tga_file("D:\\Github\\TinyRendererImplement\\obj/african_head_diffuse.tga");
-    for (int i = 0; i < model->nfaces(); i++)
-    {
-        std::vector<int> face = model->face(i);
-        Vec3f verts[3];
-        for (int j = 0; j < 3; j++)
-        {
-            Vec3f v0 = model->vert(face[j]);
-            int x0 = (v0.x + 1.) * width / 2.;
-            int y0 = (v0.y + 1.) * height / 2.;
-            verts[j].x = x0;
-            verts[j].y = y0;
-            verts[j].z = v0.z;
-        }
-        rasterizer3D(verts, image,zBuffer);
-    }  
-
-    image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
-    image.write_tga_file("output_lesson3.tga");
-    delete model;
-    */
-
    TGAImage image = TGAImage(width, height, TGAImage::RGB);
    float *zBuffer = new float[width * height];
    
@@ -478,6 +411,10 @@ int main(int argc, char **argv)
    texture.read_tga_file("../obj/african_head_diffuse.tga");//读取纹理
    texture.flip_vertically();
    model = new Model("../obj/african_head.obj");//读取模型信息
+    Matrix model_ = model_trans();
+    Matrix view_ = viewport_trans();
+    Matrix projection_ = proj_to_ortho();
+    Matrix viewport_ = viewportMatrix(width / 8, height / 8, width * 3 / 4, height * 3 / 4);
 
    Vec3f light_dir(0, 0, -1);//设置光线
 
@@ -494,7 +431,7 @@ int main(int argc, char **argv)
         {
             Vec3f vert_pos = model->vert(face_verts[j]);
             world_coords[j] = vert_pos;
-            screen_coords[j] = world_to_screen(vert_pos);
+            screen_coords[j] = homo_to_vert(viewport_*projection_division(projection_*view_*model_*convert_to_homo(world_coords[j])));
             tex_coords[j] = model->uv(tex_verts[j]);
             //std::cout << tex_verts[j] << ' ' << model->uv(tex_verts[j]).x << std::endl;
             //std::cout << tex_coords[j].x << ' ' << tex_coords[j].y << std::endl;
@@ -507,7 +444,7 @@ int main(int argc, char **argv)
             texture_shading(screen_coords, tex_coords, image, texture, intensity, zBuffer);
    }
     image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
-    image.write_tga_file("../output_lesson3.tga");
+    image.write_tga_file("../output_lesson31.tga");
     delete model;
 
 
