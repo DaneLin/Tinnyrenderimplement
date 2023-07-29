@@ -350,6 +350,7 @@ Matrix convert_to_homo(Vec3f v)
     res[1][0] = v.y;
     res[2][0] = v.z;
     res[3][0] = 1;
+    return res;
 }
 
 Matrix viewport_trans()
