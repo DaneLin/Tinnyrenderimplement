@@ -5,7 +5,7 @@ include(CTest)
 enable_testing()
 
 aux_source_directory(. DIR_SRCS)
-add_executable(cmake main.cpp model.cpp tgaimage.cpp)
+add_executable(cmake ${DIR_SRCS})
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
