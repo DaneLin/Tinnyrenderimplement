@@ -10,3 +10,5 @@ $TinyRenderer$项目地址为https://github.com/ssloy/tinyrenderer
 20230727 完成$lesson3$全部。
 
 20230729 完成$lesson4$。
+
+20230730 完成$lesson5$。
