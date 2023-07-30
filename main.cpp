@@ -15,7 +15,9 @@ const int width = 1024;
 const int height = 1024;
 const int depth = 255;
 
-Vec3f cameraPos(0, 0, 5);
+Vec3f cameraPos(1, 1, 3);
+Vec3f centerPos(0 ,0, 0);
+Vec3f up(0, 1, 0);
 
 Vec3f barycentric(const Vec3f* pts, const Vec2f p)
 {
@@ -292,7 +294,7 @@ Vec3f world_to_screen(Vec3f v)
     return Vec3f(int((v.x+1.)*width/2.+.5), int((v.y+1.)*height/2.+.5), v.z);
 }
 
-void texture_shading(Vec3f *pts, Vec2i *texs, TGAImage &image, TGAImage &texture, float intensity, float *zBuffer)
+void texture_shading(Vec3f *pts, Vec2i *texs, TGAImage &image, TGAImage &texture, Vec3f look_dir, float *zBuffer)
 {
     //首先获取对应的Bounding Box
     float min_x = std::min({pts[0].x, pts[1].x, pts[2].x});
@@ -337,6 +339,40 @@ void texture_shading(Vec3f *pts, Vec2i *texs, TGAImage &image, TGAImage &texture
         }
     }
 
+}
+
+
+void Gouraud_Shading(Vec3f *pts, Vec3f *vns, TGAImage &image, Vec3f look_dir, float *zBuffer)
+{
+    int min_x = std::min({pts[0].x, pts[1].x, pts[2].x});
+    int max_x = std::max({pts[0].x, pts[1].x, pts[2].x});
+    int min_y = std::min({pts[0].y, pts[1].y, pts[2].y});
+    int max_y = std::max({pts[0].y, pts[1].y, pts[2].y});
+
+    for (int x = min_x; x <= max_x; x++)
+    {
+        for (int y = min_y; y <= max_y; y++)
+        {
+            auto barycentic_pos = barycentric(pts,Vec2f(x, y));
+
+            if (barycentic_pos.x < -.01 or barycentic_pos.y < -.01 or barycentic_pos.z < -.01) continue;
+
+            float z = 0;
+            float intensity = 0;
+            for (int i = 0; i < 3; i++)
+            {
+                z += barycentic_pos[i] * pts[i].z;
+                intensity += (look_dir * vns[i].normalize()) * barycentic_pos[i]  ;
+            }
+
+            if (zBuffer[(int)(x + y * width)] < z)
+            {
+                zBuffer[(int)(x + y * width)] = z;
+                //std::cout << intensity << std::endl;
+                image.set(x, y, TGAColor(255 * intensity, 255 * intensity, 255 * intensity, 255 * intensity));
+            }
+        }
+    }
 }
 
 /**
@@ -396,6 +432,26 @@ Vec3f homo_to_vert(Matrix m)
     return Vec3f(m[0][0], m[1][0], m[2][0]);
 }
 
+Matrix lookAt(Vec3f eye, Vec3f center, Vec3f up)
+{
+    Vec3f z = (eye - center).normalize();
+    Vec3f x = (up ^ z).normalize();
+    Vec3f y = (z ^ x).normalize();
+
+    Matrix res = Matrix::identity(4);
+
+    for (int i = 0; i < 3; i++)
+    {
+        res[0][i] = x[i];
+        res[1][i] = y[i];
+        res[2][i] = z[i];
+        res[i][3] = -center[i];
+    }
+
+    return res;
+}
+
+
 
 int main(int argc, char **argv)
 {
@@ -411,13 +467,14 @@ int main(int argc, char **argv)
    TGAImage texture = TGAImage(width, height, TGAImage::RGB);
    texture.read_tga_file("../obj/african_head_diffuse.tga");//读取纹理
    texture.flip_vertically();
-   model = new Model("../obj/african_head.obj");//读取模型信息
-    Matrix model_ = model_trans();
+    model = new Model("../obj/african_head.obj");//读取模型信息
+    Matrix model_ = lookAt(cameraPos, centerPos, up);
     Matrix view_ = viewport_trans();
     Matrix projection_ = proj_to_ortho();
     Matrix viewport_ = viewportMatrix(width / 8, height / 8, width * 3 / 4, height * 3 / 4);
 
-   Vec3f light_dir(0, 0, -1);//设置光线
+   Vec3f light_dir(0, 0, 1);//设置光线
+   light_dir.normalize();
 
    for (int idx = 0; idx < model->nfaces(); idx++)
    {
@@ -427,6 +484,7 @@ int main(int argc, char **argv)
         Vec3f world_coords[3];
         Vec3f screen_coords[3];
         Vec2i tex_coords[3];
+        Vec3f norm_coords[3];
 
         for (int j = 0; j < 3; j++)
         {
@@ -434,20 +492,34 @@ int main(int argc, char **argv)
             world_coords[j] = vert_pos;
             screen_coords[j] = homo_to_vert(viewport_*projection_division(projection_*view_*model_*convert_to_homo(world_coords[j])));
             tex_coords[j] = model->uv(tex_verts[j]);
+            norm_coords[j] = model->norm(norm_verts[j]);
             //std::cout << tex_verts[j] << ' ' << model->uv(tex_verts[j]).x << std::endl;
             //std::cout << tex_coords[j].x << ' ' << tex_coords[j].y << std::endl;
         }
 
-        Vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
-        n.normalize();
-        float intensity = n * light_dir;
-        if (intensity > 0)
-            texture_shading(screen_coords, tex_coords, image, texture, intensity, zBuffer);
+        // Vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
+        // n.normalize();
+        // float intensity = n * light_dir;
+        // if (intensity > 0)
+        texture_shading(screen_coords, tex_coords, image, texture, light_dir, zBuffer);
+        //Gouraud_Shading(screen_coords, norm_coords, image, light_dir, zBuffer);
+
    }
     image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
-    image.write_tga_file("../output_lesson31.tga");
-    delete model;
+    image.write_tga_file("../output_lesson33.tga");
 
+    { // dump z-buffer (debugging purposes only)
+        TGAImage zbimage(width, height, TGAImage::GRAYSCALE);
+        for (int i=0; i<width; i++) {
+            for (int j=0; j<height; j++) {
+                zbimage.set(i, j, TGAColor(zBuffer[i+j*width]));
+            }
+        }
+        zbimage.flip_vertically(); // i want to have the origin at the left bottom corner of the image
+        zbimage.write_tga_file("../zbuffer.tga");
+    }
+    delete model;
+    delete []zBuffer;
 
     return 0;
 }
