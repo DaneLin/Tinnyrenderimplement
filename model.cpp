@@ -100,7 +100,7 @@ Vec3f Model::vert(int i) {
 }
 
 Vec2i Model::uv(int i) {
-    return Vec2i(uvs_[i].x * 1024,uvs_[i].y * 1024);
+    return Vec2i(uvs_[i].x *600,uvs_[i].y * 600);
 }
 
 Vec3f Model::norm(int i) {

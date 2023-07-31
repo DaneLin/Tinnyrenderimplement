@@ -1,0 +1,9 @@
+D:/TinyRendererImplement-1/CMakeFiles/Experimental.dir
+D:/TinyRendererImplement-1/CMakeFiles/Nightly.dir
+D:/TinyRendererImplement-1/CMakeFiles/Continuous.dir
+D:/TinyRendererImplement-1/CMakeFiles/NightlyMemoryCheck.dir
+D:/TinyRendererImplement-1/CMakeFiles/cmake.dir
+D:/TinyRendererImplement-1/CMakeFiles/PACKAGE.dir
+D:/TinyRendererImplement-1/CMakeFiles/RUN_TESTS.dir
+D:/TinyRendererImplement-1/CMakeFiles/ALL_BUILD.dir
+D:/TinyRendererImplement-1/CMakeFiles/ZERO_CHECK.dir

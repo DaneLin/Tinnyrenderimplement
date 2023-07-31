@@ -11,22 +11,22 @@ const TGAColor red = TGAColor(255, 0, 0, 255);
 const TGAColor green = TGAColor(0, 255, 0, 0);
 const TGAColor blue = TGAColor(0, 0, 255, 255);
 Model *model = NULL;
-const int width = 1024;
-const int height = 1024;
+const int width = 800;
+const int height = 800;
 const int depth = 255;
 
-Vec3f cameraPos(1, 1, 3);
-Vec3f centerPos(0 ,0, 0);
+Vec3f cameraPos(0, 0, 5);
+Vec3f centerPos(0, 0, 0);
 Vec3f up(0, 1, 0);
 
-Vec3f barycentric(const Vec3f* pts, const Vec2f p)
+Vec3f barycentric(const Vec3f *pts, const Vec2f p)
 {
-    Vec3f pos = Vec3f(pts[1].x - pts[0].x, pts[2].x - pts[0].x, pts[0].x - p.x ) ^ Vec3f(pts[1].y - pts[0].y, pts[2].y - pts[0].y, pts[0].y -p.y );
+    Vec3f pos = Vec3f(pts[1].x - pts[0].x, pts[2].x - pts[0].x, pts[0].x - p.x) ^ Vec3f(pts[1].y - pts[0].y, pts[2].y - pts[0].y, pts[0].y - p.y);
 
-    if (std::abs(pos.z) < 1) return Vec3f(-1, 1, 1);
+    if (std::abs(pos.z) < 1)
+        return Vec3f(-1, 1, 1);
 
-    return Vec3f(1.f - (pos.x + pos.y) / (float)pos.z, (float)pos.x / pos.z, (float)pos.y / pos.z);
-
+    return Vec3f(1.f - (pos.x + pos.y) / pos.z, pos.x / pos.z, pos.y / pos.z);
 }
 
 void line(int x0, int y0, int x1, int y1, TGAImage &image, TGAColor color)
@@ -149,7 +149,7 @@ void line(int x0, int y0, int x1, int y1, TGAImage &image, TGAColor color)
     // }
 }
 
-//传统检测点方法
+// 传统检测点方法
 void triangle(Vec2i vert[], TGAImage &image, TGAColor color)
 {
     /**
@@ -172,9 +172,9 @@ void triangle(Vec2i vert[], TGAImage &image, TGAColor color)
     //      int y = y0 * (1.0f - t) + y1 * t;
     //      image.set(x, y, color);
     //  }
-    //一行一行绘制
-    //以中间点作为分割点，将三角形分为上下两个部分
-    //先将三角形的下半部分绘制
+    // 一行一行绘制
+    // 以中间点作为分割点，将三角形分为上下两个部分
+    // 先将三角形的下半部分绘制
     int tot_height = top_point.y - bottom_point.y;
     int seg_height = middle_point.y - bottom_point.y + 1;
     for (int y = bottom_point.y; y <= middle_point.y; y++)
@@ -184,14 +184,15 @@ void triangle(Vec2i vert[], TGAImage &image, TGAColor color)
 
         Vec2i bmv = bottom_point + (middle_point - bottom_point) * b_to_m;
         Vec2i btv = bottom_point + (top_point - bottom_point) * b_to_t;
-        if (bmv.x > btv.x) std::swap(bmv.x, btv.x);
+        if (bmv.x > btv.x)
+            std::swap(bmv.x, btv.x);
 
         for (int x = bmv.x; x <= btv.x; x++)
         {
             image.set(x, y, color);
         }
     }
-    //绘制三角形的上半部分
+    // 绘制三角形的上半部分
     seg_height = top_point.y - middle_point.y + 1;
     for (int y = middle_point.y; y <= top_point.y; y++)
     {
@@ -200,8 +201,9 @@ void triangle(Vec2i vert[], TGAImage &image, TGAColor color)
 
         Vec2i mtv = middle_point + (top_point - middle_point) * m_t_t;
         Vec2i btv = bottom_point + (top_point - bottom_point) * b_t_t;
-        
-        if(mtv.x > btv.x) std::swap(mtv.x, btv.x);
+
+        if (mtv.x > btv.x)
+            std::swap(mtv.x, btv.x);
         for (int x = mtv.x; x <= btv.x; x++)
         {
             image.set(x, y, color);
@@ -209,7 +211,7 @@ void triangle(Vec2i vert[], TGAImage &image, TGAColor color)
     }
 }
 
-//使用重点坐标和包围盒方式优化的检测方式
+// 使用重点坐标和包围盒方式优化的检测方式
 /*
 
 void triangle_with_barycentric(const Vec2i *pts, TGAImage &image, TGAColor color)
@@ -233,10 +235,11 @@ void triangle_with_barycentric(const Vec2i *pts, TGAImage &image, TGAColor color
 }
 */
 
-//2D情况下的光栅化
-void rasterizer(Vec2i p0,  Vec2i p1, TGAImage& image, const TGAColor &color, int *ybuffer)
+// 2D情况下的光栅化
+void rasterizer(Vec2i p0, Vec2i p1, TGAImage &image, const TGAColor &color, int *ybuffer)
 {
-    if (p0.x > p1.x) {
+    if (p0.x > p1.x)
+    {
         std::swap(p0, p1);
     }
 
@@ -245,7 +248,8 @@ void rasterizer(Vec2i p0,  Vec2i p1, TGAImage& image, const TGAColor &color, int
     {
         float t = (x - p0.x) / tot_len;
         int y = p0.y * (1. - t) + p1.y * t;
-        if (ybuffer[x] < y) {
+        if (ybuffer[x] < y)
+        {
             ybuffer[x] = y;
             for (int j = 0; j < 16; j++)
                 image.set(x, j, color);
@@ -271,7 +275,7 @@ void rasterizer3D(Vec3f* pts, TGAImage &image, int *zbuffer)
 
             if (barycentric_pos.x < 0 || barycentric_pos.y < 0 || barycentric_pos.z < 0) continue;
             Vec3f p(x, y, 0);
-            
+
             for (int i = 0; i < 3; i++)
             {
                 Vec3f tmp = barycentric_pos ^ pts[i];
@@ -291,17 +295,17 @@ void rasterizer3D(Vec3f* pts, TGAImage &image, int *zbuffer)
 
 Vec3f world_to_screen(Vec3f v)
 {
-    return Vec3f(int((v.x+1.)*width/2.+.5), int((v.y+1.)*height/2.+.5), v.z);
+    return Vec3f(int((v.x + 1.) * width / 2. + .5), int((v.y + 1.) * height / 2. + .5), v.z);
 }
 
 void texture_shading(Vec3f *pts, Vec2i *texs, TGAImage &image, TGAImage &texture, Vec3f look_dir, float *zBuffer)
 {
-    //首先获取对应的Bounding Box
+    // 首先获取对应的Bounding Box
     float min_x = std::min({pts[0].x, pts[1].x, pts[2].x});
     float max_x = std::max({pts[0].x, pts[1].x, pts[2].x});
     float min_y = std::min({pts[0].y, pts[1].y, pts[2].y});
     float max_y = std::max({pts[0].y, pts[1].y, pts[2].y});
-     int w = texture.get_width();
+    int w = texture.get_width();
     int h = texture.get_height();
     // std::cout << w << ' ' << h << std::endl;
     // for (int i = 0; i < 3; i++)
@@ -314,62 +318,81 @@ void texture_shading(Vec3f *pts, Vec2i *texs, TGAImage &image, TGAImage &texture
         for (int y = min_y; y <= max_y; y++)
         {
             Vec3f tmp_pt(x, y, 0);
+            auto [raw, alpha, beta, gamma] = barycentric(pts, Vec2f(x, y));
             Vec3f barycentric_pos = barycentric(pts, Vec2f(x, y));
             Vec2f tex_pt(0, 0);
-            if (barycentric_pos.x < -.01 || barycentric_pos.y < -.01 || barycentric_pos.z < -.01) continue;
-        
-            //std::cout << w <<' ' << h << std::endl;
-            for (int i = 0; i < 3; i++) 
+            if (alpha < -.01 || beta < -.01 || gamma < -.01)
+                continue;
+            // std::cout << barycentric_pos.x << ' ' << barycentric_pos.y << ' ' << barycentric_pos.z << std::endl;
+            std::cout << alpha << ' ' << beta << ' ' << gamma << std::endl;
+
+            //     //std::cout << w <<' ' << h << std::endl;
+            for (int i = 0; i < 3; i++)
             {
                 tmp_pt.z += barycentric_pos[i] * pts[i].z;
                 tex_pt.x += texs[i].x * barycentric_pos[i];
                 tex_pt.y += texs[i].y * barycentric_pos[i];
-                //std::cout << texs[i].x << ' ' << texs[i].y << std::endl;
+                // std::cout << texs[i].x << ' ' << texs[i].y << std::endl;
             }
-           //std::cout << std::endl;
-            //std::cout << tex_pt.x << ' ' << tex_pt.y << ' ' << w << ' ' << h<< std::endl;
-            TGAColor tex_color = texture.get(tex_pt.x, tex_pt.y);
-            //std::cout << tex_color.bgra[2] << ' ' << tex_color.bgra[1] << ' ' << tex_color.bgra[0] << ' ' << std::endl;
-
+            //     tex_pt.x /= tmp_pt.z;
+            //     tex_pt.y /= tmp_pt.z;
+            //    //std::cout << std::endl;
+            //     //std::cout << tex_pt.x << ' ' << tex_pt.y << ' ' << w << ' ' << h<< std::endl;
+            //     TGAColor tex_color = texture.get(tex_pt.x, tex_pt.y);
+            //     //std::cout << tex_color.bgra[2] << ' ' << tex_color.bgra[1] << ' ' << tex_color.bgra[0] << ' ' << std::endl;
             if (zBuffer[(int)(x + y * width)] < tmp_pt.z)
             {
+                alpha = alpha / pts[0].z;
+                beta = beta / pts[1].z;
+                gamma = gamma / pts[2].z;
+                std::cout << pts[0].z << ' ' << pts[1].z << ' ' << pts[2].z << std::endl;
+                //std::cout << alpha << ' ' << beta << ' ' << gamma << std::endl;
+                float Zn = 1 / (alpha + beta + gamma);
+                auto uv = (texs[0] * alpha + texs[1] * beta + texs[2] * gamma) * Zn;
+                //TGAColor tex_color = texture.get(uv.x, uv.y);
+                TGAColor tex_color = texture.get(tex_pt.x, tex_pt.y);
+                // std::cout << tex_pt.x << ' ' << tex_pt.y << ' ' << uv.x << ' ' << uv.y << std::endl;
+                //std::cout << Zn << std::endl;
+
                 zBuffer[(int)(x + y * width)] = tmp_pt.z;
                 image.set(tmp_pt.x, tmp_pt.y, tex_color);
             }
         }
     }
-
 }
-
 
 void Gouraud_Shading(Vec3f *pts, Vec3f *vns, TGAImage &image, Vec3f look_dir, float *zBuffer)
 {
+    // std::cout << "It's going to paint the image" << std::endl;
     int min_x = std::min({pts[0].x, pts[1].x, pts[2].x});
     int max_x = std::max({pts[0].x, pts[1].x, pts[2].x});
     int min_y = std::min({pts[0].y, pts[1].y, pts[2].y});
     int max_y = std::max({pts[0].y, pts[1].y, pts[2].y});
+    std::cout << min_x << ' ' << max_x << ' ' << min_y << ' ' << max_y << std::endl;
 
     for (int x = min_x; x <= max_x; x++)
     {
         for (int y = min_y; y <= max_y; y++)
         {
-            auto barycentic_pos = barycentric(pts,Vec2f(x, y));
+            // std::cout << x << ' ' << y << std::endl;
+            auto barycentic_pos = barycentric(pts, Vec2f(x, y));
 
-            if (barycentic_pos.x < -.01 or barycentic_pos.y < -.01 or barycentic_pos.z < -.01) continue;
+            if (barycentic_pos.x < -.01 or barycentic_pos.y < -.01 or barycentic_pos.z < -.01)
+                continue;
 
             float z = 0;
             float intensity = 0;
             for (int i = 0; i < 3; i++)
             {
                 z += barycentic_pos[i] * pts[i].z;
-                intensity += (look_dir * vns[i].normalize()) * barycentic_pos[i]  ;
+                intensity += (look_dir * vns[i].normalize()) * barycentic_pos[i];
             }
-
+            // std::cout << (int)(x + y * width) << std::endl;
             if (zBuffer[(int)(x + y * width)] < z)
             {
                 zBuffer[(int)(x + y * width)] = z;
-                //std::cout << intensity << std::endl;
-                image.set(x, y, TGAColor(255 * intensity, 255 * intensity, 255 * intensity, 255 * intensity));
+                // std::cout << intensity << std::endl;
+                image.set(x, y, TGAColor(255 * intensity, 255 * intensity, 255 * intensity));
             }
         }
     }
@@ -378,7 +401,7 @@ void Gouraud_Shading(Vec3f *pts, Vec3f *vns, TGAImage &image, Vec3f look_dir, fl
 /**
  * params：Vec3f v
  * 考虑到涉及三维空间中的变换，需要一个函数将v变为对应的齐次坐标
-*/
+ */
 Matrix convert_to_homo(Vec3f v)
 {
     Matrix res(4, 1);
@@ -408,6 +431,7 @@ Matrix proj_to_ortho()
 
 Matrix projection_division(Matrix m)
 {
+    // std::cout << m[3][0] << std::endl;
     m[0][0] = m[0][0] / m[3][0];
     m[1][0] = m[1][0] / m[3][0];
     m[2][0] = m[2][0] / m[3][0];
@@ -415,7 +439,8 @@ Matrix projection_division(Matrix m)
     return m;
 }
 
-Matrix viewportMatrix(int x, int y, int w, int h) {
+Matrix viewportMatrix(int x, int y, int w, int h)
+{
     Matrix m = Matrix::identity(4);
     m[0][3] = x + w / 2.f;
     m[1][3] = y + h / 2.f;
@@ -451,33 +476,31 @@ Matrix lookAt(Vec3f eye, Vec3f center, Vec3f up)
     return res;
 }
 
-
-
 int main(int argc, char **argv)
 {
-   
-   TGAImage image = TGAImage(width, height, TGAImage::RGB);
-   float *zBuffer = new float[width * height];
-   
-   for (int i = 0; i < width * height; i++) 
-   {
-        zBuffer[i] = std::numeric_limits<float>::min();
-   }
 
-   TGAImage texture = TGAImage(width, height, TGAImage::RGB);
-   texture.read_tga_file("../obj/african_head_diffuse.tga");//读取纹理
-   texture.flip_vertically();
-    model = new Model("../obj/african_head.obj");//读取模型信息
+    TGAImage image = TGAImage(width, height, TGAImage::RGB);
+    float *zBuffer = new float[width * height];
+
+    for (int i = 0; i < width * height; i++)
+    {
+        zBuffer[i] = std::numeric_limits<float>::min();
+    }
+
+    TGAImage texture = TGAImage(width, height, TGAImage::RGB);
+    texture.read_tga_file("../obj/floor_diffuse.tga"); // 读取纹理
+    texture.flip_vertically();
+    model = new Model("../obj/floor.obj"); // 读取模型信息
     Matrix model_ = lookAt(cameraPos, centerPos, up);
     Matrix view_ = viewport_trans();
     Matrix projection_ = proj_to_ortho();
     Matrix viewport_ = viewportMatrix(width / 8, height / 8, width * 3 / 4, height * 3 / 4);
 
-   Vec3f light_dir(0, 0, 1);//设置光线
-   light_dir.normalize();
+    Vec3f light_dir(0, 1, 0); // 设置光线
+    light_dir.normalize();
 
-   for (int idx = 0; idx < model->nfaces(); idx++)
-   {
+    for (int idx = 0; idx < model->nfaces(); idx++)
+    {
         std::vector<int> face_verts = model->face(idx);
         std::vector<int> tex_verts = model->fuvs(idx);
         std::vector<int> norm_verts = model->fnorms(idx);
@@ -490,36 +513,58 @@ int main(int argc, char **argv)
         {
             Vec3f vert_pos = model->vert(face_verts[j]);
             world_coords[j] = vert_pos;
-            screen_coords[j] = homo_to_vert(viewport_*projection_division(projection_*view_*model_*convert_to_homo(world_coords[j])));
+            screen_coords[j] = homo_to_vert(viewport_ * projection_division(projection_ * view_ * model_ * convert_to_homo(world_coords[j])));
+            Matrix tmp = projection_ * view_ * model_ * convert_to_homo(world_coords[j]);
+            // std::cout << tmp.nrows() << ' ' << tmp.ncols() << std::endl;
+            // for (int i = 0; i < tmp.nrows(); i++)
+            // {
+            //     for (int j = 0; j < tmp.ncols(); j++)
+            //     {
+            //         std::cout << tmp[i][j] << ' ';
+            //     }
+            //     std::cout << '\n';
+            // }
+
             tex_coords[j] = model->uv(tex_verts[j]);
             norm_coords[j] = model->norm(norm_verts[j]);
-            //std::cout << tex_verts[j] << ' ' << model->uv(tex_verts[j]).x << std::endl;
-            //std::cout << tex_coords[j].x << ' ' << tex_coords[j].y << std::endl;
+            // std::cout << tex_verts[j] << ' ' << model->uv(tex_verts[j]).x << std::endl;
+            // std::cout << tex_coords[j].x << ' ' << tex_coords[j].y << std::endl;
         }
 
+        // for (int i =0 ; i < 3; i++)
+        // {
+        //     std::cerr << world_coords[i] << std::endl;
+        // }
+
+        // for (int i = 0; i < 3; i++)
+        // {
+        //     std::cerr << screen_coords[i] << std::endl;
+        // }
         // Vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
         // n.normalize();
         // float intensity = n * light_dir;
         // if (intensity > 0)
         texture_shading(screen_coords, tex_coords, image, texture, light_dir, zBuffer);
-        //Gouraud_Shading(screen_coords, norm_coords, image, light_dir, zBuffer);
-
-   }
+        // Gouraud_Shading(screen_coords, norm_coords, image, light_dir, zBuffer);
+    }
+    std::cout << "It's going to set the image." << std::endl;
     image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
-    image.write_tga_file("../output_lesson33.tga");
+    image.write_tga_file("../output_floor_diffuse.tga");
 
     { // dump z-buffer (debugging purposes only)
         TGAImage zbimage(width, height, TGAImage::GRAYSCALE);
-        for (int i=0; i<width; i++) {
-            for (int j=0; j<height; j++) {
-                zbimage.set(i, j, TGAColor(zBuffer[i+j*width]));
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                zbimage.set(i, j, TGAColor(zBuffer[i + j * width]));
             }
         }
         zbimage.flip_vertically(); // i want to have the origin at the left bottom corner of the image
         zbimage.write_tga_file("../zbuffer.tga");
     }
     delete model;
-    delete []zBuffer;
+    delete[] zBuffer;
 
     return 0;
 }

@@ -1,0 +1,221 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeDetermineSystem.cmake:211 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Windows - 10.0.22621 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.6.3+07e294721 for .NET Framework
+      \xc9\xfa\xb3\xc9\xc6\xf4\xb6\xafʱ\xbc\xe4Ϊ 2023/7/31 14:49:06\xa1\xa3
+      
+      \xbdڵ\xe3 1 \xc9ϵ\xc4\xcf\xeeĿ\xa1\xb0D:\\TinyRendererImplement-1\\CMakeFiles\\3.27.0\\CompilerIdC\\CompilerIdC.vcxproj\xa1\xb1(Ĭ\xc8\xcfĿ\xb1\xea)\xa1\xa3
+      PrepareForBuild:
+        \xd5\xfd\xd4ڴ\xb4\xbd\xa8Ŀ¼\xa1\xb0Debug\\\xa1\xb1\xa1\xa3
+        \xd5\xfd\xd4ڴ\xb4\xbd\xa8Ŀ¼\xa1\xb0Debug\\CompilerIdC.tlog\\\xa1\xb1\xa1\xa3
+      InitializeBuildStatus:
+        \xd5\xfd\xd4ڴ\xb4\xbd\xa8\xa1\xb0Debug\\CompilerIdC.tlog\\unsuccessfulbuild\xa1\xb1\xa3\xac\xd2\xf2Ϊ\xd2\xd1ָ\xb6\xa8\xa1\xb0AlwaysCreate\xa1\xb1\xa1\xa3
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+        CMakeCCompilerId.c
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
+        CompilerIdC.vcxproj -> D:\\TinyRendererImplement-1\\CMakeFiles\\3.27.0\\CompilerIdC\\CompilerIdC.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_C_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        \xd5\xfd\xd4\xdaɾ\xb3\xfd\xceļ\xfe\xa1\xb0Debug\\CompilerIdC.tlog\\unsuccessfulbuild\xa1\xb1\xa1\xa3
+        \xd5\xfd\xd4ڶԡ\xb0Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate\xa1\xb1ִ\xd0\xd0 Touch \xc8\xce\xce\xf1\xa1\xa3
+      \xd2\xd1\xcd\xea\xb3\xc9\xc9\xfa\xb3\xc9\xcf\xeeĿ\xa1\xb0D:\\TinyRendererImplement-1\\CMakeFiles\\3.27.0\\CompilerIdC\\CompilerIdC.vcxproj\xa1\xb1(Ĭ\xc8\xcfĿ\xb1\xea)\xb5Ĳ\xd9\xd7\xf7\xa1\xa3
+      
+      \xd2ѳɹ\xa6\xc9\xfa\xb3ɡ\xa3
+          0 \xb8\xf6\xbe\xaf\xb8\xe6
+          0 \xb8\xf6\xb4\xed\xce\xf3
+      
+      \xd2\xd1\xd3\xc3ʱ\xbc\xe4 00:00:01.40
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+      
+      The C compiler identification is MSVC, found in:
+        D:/TinyRendererImplement-1/CMakeFiles/3.27.0/CompilerIdC/CompilerIdC.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.6.3+07e294721 for .NET Framework
+      \xc9\xfa\xb3\xc9\xc6\xf4\xb6\xafʱ\xbc\xe4Ϊ 2023/7/31 14:49:07\xa1\xa3
+      
+      \xbdڵ\xe3 1 \xc9ϵ\xc4\xcf\xeeĿ\xa1\xb0D:\\TinyRendererImplement-1\\CMakeFiles\\3.27.0\\CompilerIdCXX\\CompilerIdCXX.vcxproj\xa1\xb1(Ĭ\xc8\xcfĿ\xb1\xea)\xa1\xa3
+      PrepareForBuild:
+        \xd5\xfd\xd4ڴ\xb4\xbd\xa8Ŀ¼\xa1\xb0Debug\\\xa1\xb1\xa1\xa3
+        \xd5\xfd\xd4ڴ\xb4\xbd\xa8Ŀ¼\xa1\xb0Debug\\CompilerIdCXX.tlog\\\xa1\xb1\xa1\xa3
+      InitializeBuildStatus:
+        \xd5\xfd\xd4ڴ\xb4\xbd\xa8\xa1\xb0Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild\xa1\xb1\xa3\xac\xd2\xf2Ϊ\xd2\xd1ָ\xb6\xa8\xa1\xb0AlwaysCreate\xa1\xb1\xa1\xa3
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> D:\\TinyRendererImplement-1\\CMakeFiles\\3.27.0\\CompilerIdCXX\\CompilerIdCXX.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        \xd5\xfd\xd4\xdaɾ\xb3\xfd\xceļ\xfe\xa1\xb0Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild\xa1\xb1\xa1\xa3
+        \xd5\xfd\xd4ڶԡ\xb0Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate\xa1\xb1ִ\xd0\xd0 Touch \xc8\xce\xce\xf1\xa1\xa3
+      \xd2\xd1\xcd\xea\xb3\xc9\xc9\xfa\xb3\xc9\xcf\xeeĿ\xa1\xb0D:\\TinyRendererImplement-1\\CMakeFiles\\3.27.0\\CompilerIdCXX\\CompilerIdCXX.vcxproj\xa1\xb1(Ĭ\xc8\xcfĿ\xb1\xea)\xb5Ĳ\xd9\xd7\xf7\xa1\xa3
+      
+      \xd2ѳɹ\xa6\xc9\xfa\xb3ɡ\xa3
+          0 \xb8\xf6\xbe\xaf\xb8\xe6
+          0 \xb8\xf6\xb4\xed\xce\xf3
+      
+      \xd2\xd1\xd3\xc3ʱ\xbc\xe4 00:00:00.43
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        D:/TinyRendererImplement-1/CMakeFiles/3.27.0/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "D:/TinyRendererImplement-1/CMakeFiles/CMakeScratch/TryCompile-4qa3qp"
+      binary: "D:/TinyRendererImplement-1/CMakeFiles/CMakeScratch/TryCompile-4qa3qp"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/TinyRendererImplement-1/CMakeFiles/CMakeScratch/TryCompile-4qa3qp'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_53948.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.6.3+07e294721 for .NET Framework
+        \xc9\xfa\xb3\xc9\xc6\xf4\xb6\xafʱ\xbc\xe4Ϊ 2023/7/31 14:49:08\xa1\xa3
+        
+        \xbdڵ\xe3 1 \xc9ϵ\xc4\xcf\xeeĿ\xa1\xb0D:\\TinyRendererImplement-1\\CMakeFiles\\CMakeScratch\\TryCompile-4qa3qp\\cmTC_53948.vcxproj\xa1\xb1(Ĭ\xc8\xcfĿ\xb1\xea)\xa1\xa3
+        PrepareForBuild:
+          \xd5\xfd\xd4ڴ\xb4\xbd\xa8Ŀ¼\xa1\xb0cmTC_53948.dir\\Debug\\\xa1\xb1\xa1\xa3
+          \xd5\xfd\xd4ڴ\xb4\xbd\xa8Ŀ¼\xa1\xb0D:\\TinyRendererImplement-1\\CMakeFiles\\CMakeScratch\\TryCompile-4qa3qp\\Debug\\\xa1\xb1\xa1\xa3
+          \xd5\xfd\xd4ڴ\xb4\xbd\xa8Ŀ¼\xa1\xb0cmTC_53948.dir\\Debug\\cmTC_53948.tlog\\\xa1\xb1\xa1\xa3
+        InitializeBuildStatus:
+          \xd5\xfd\xd4ڴ\xb4\xbd\xa8\xa1\xb0cmTC_53948.dir\\Debug\\cmTC_53948.tlog\\unsuccessfulbuild\xa1\xb1\xa3\xac\xd2\xf2Ϊ\xd2\xd1ָ\xb6\xa8\xa1\xb0AlwaysCreate\xa1\xb1\xa1\xa3
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_53948.dir\\Debug\\\\" /Fd"cmTC_53948.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.27\\Modules\\CMakeCCompilerABI.c"
+          \xd3\xc3\xd3\xda x64 \xb5\xc4 Microsoft (R) C/C++ \xd3Ż\xaf\xb1\xe0\xd2\xeb\xc6\xf7 19.36.32537 \xb0\xe6
+          CMakeCCompilerABI.c
+          \xb0\xe6Ȩ\xcb\xf9\xd3\xd0(C) Microsoft Corporation\xa1\xa3\xb1\xa3\xc1\xf4\xcb\xf9\xd3\xd0Ȩ\xc0\xfb\xa1\xa3
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_53948.dir\\Debug\\\\" /Fd"cmTC_53948.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.27\\Modules\\CMakeCCompilerABI.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\TinyRendererImplement-1\\CMakeFiles\\CMakeScratch\\TryCompile-4qa3qp\\Debug\\cmTC_53948.exe" /INCREMENTAL /ILK:"cmTC_53948.dir\\Debug\\cmTC_53948.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/TinyRendererImplement-1/CMakeFiles/CMakeScratch/TryCompile-4qa3qp/Debug/cmTC_53948.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/TinyRendererImplement-1/CMakeFiles/CMakeScratch/TryCompile-4qa3qp/Debug/cmTC_53948.lib" /MACHINE:X64  /machine:x64 cmTC_53948.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_53948.vcxproj -> D:\\TinyRendererImplement-1\\CMakeFiles\\CMakeScratch\\TryCompile-4qa3qp\\Debug\\cmTC_53948.exe
+        FinalizeBuildStatus:
+          \xd5\xfd\xd4\xdaɾ\xb3\xfd\xceļ\xfe\xa1\xb0cmTC_53948.dir\\Debug\\cmTC_53948.tlog\\unsuccessfulbuild\xa1\xb1\xa1\xa3
+          \xd5\xfd\xd4ڶԡ\xb0cmTC_53948.dir\\Debug\\cmTC_53948.tlog\\cmTC_53948.lastbuildstate\xa1\xb1ִ\xd0\xd0 Touch \xc8\xce\xce\xf1\xa1\xa3
+        \xd2\xd1\xcd\xea\xb3\xc9\xc9\xfa\xb3\xc9\xcf\xeeĿ\xa1\xb0D:\\TinyRendererImplement-1\\CMakeFiles\\CMakeScratch\\TryCompile-4qa3qp\\cmTC_53948.vcxproj\xa1\xb1(Ĭ\xc8\xcfĿ\xb1\xea)\xb5Ĳ\xd9\xd7\xf7\xa1\xa3
+        
+        \xd2ѳɹ\xa6\xc9\xfa\xb3ɡ\xa3
+            0 \xb8\xf6\xbe\xaf\xb8\xe6
+            0 \xb8\xf6\xb4\xed\xce\xf3
+        
+        \xd2\xd1\xd3\xc3ʱ\xbc\xe4 00:00:00.36
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "D:/TinyRendererImplement-1/CMakeFiles/CMakeScratch/TryCompile-ir7z0z"
+      binary: "D:/TinyRendererImplement-1/CMakeFiles/CMakeScratch/TryCompile-ir7z0z"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/TinyRendererImplement-1/CMakeFiles/CMakeScratch/TryCompile-ir7z0z'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_180fb.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.6.3+07e294721 for .NET Framework
+        \xc9\xfa\xb3\xc9\xc6\xf4\xb6\xafʱ\xbc\xe4Ϊ 2023/7/31 14:49:09\xa1\xa3
+        
+        \xbdڵ\xe3 1 \xc9ϵ\xc4\xcf\xeeĿ\xa1\xb0D:\\TinyRendererImplement-1\\CMakeFiles\\CMakeScratch\\TryCompile-ir7z0z\\cmTC_180fb.vcxproj\xa1\xb1(Ĭ\xc8\xcfĿ\xb1\xea)\xa1\xa3
+        PrepareForBuild:
+          \xd5\xfd\xd4ڴ\xb4\xbd\xa8Ŀ¼\xa1\xb0cmTC_180fb.dir\\Debug\\\xa1\xb1\xa1\xa3
+          \xd5\xfd\xd4ڴ\xb4\xbd\xa8Ŀ¼\xa1\xb0D:\\TinyRendererImplement-1\\CMakeFiles\\CMakeScratch\\TryCompile-ir7z0z\\Debug\\\xa1\xb1\xa1\xa3
+          \xd5\xfd\xd4ڴ\xb4\xbd\xa8Ŀ¼\xa1\xb0cmTC_180fb.dir\\Debug\\cmTC_180fb.tlog\\\xa1\xb1\xa1\xa3
+        InitializeBuildStatus:
+          \xd5\xfd\xd4ڴ\xb4\xbd\xa8\xa1\xb0cmTC_180fb.dir\\Debug\\cmTC_180fb.tlog\\unsuccessfulbuild\xa1\xb1\xa3\xac\xd2\xf2Ϊ\xd2\xd1ָ\xb6\xa8\xa1\xb0AlwaysCreate\xa1\xb1\xa1\xa3
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_180fb.dir\\Debug\\\\" /Fd"cmTC_180fb.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.27\\Modules\\CMakeCXXCompilerABI.cpp"
+          \xd3\xc3\xd3\xda x64 \xb5\xc4 Microsoft (R) C/C++ \xd3Ż\xaf\xb1\xe0\xd2\xeb\xc6\xf7 19.36.32537 \xb0\xe6
+          CMakeCXXCompilerABI.cpp
+          \xb0\xe6Ȩ\xcb\xf9\xd3\xd0(C) Microsoft Corporation\xa1\xa3\xb1\xa3\xc1\xf4\xcb\xf9\xd3\xd0Ȩ\xc0\xfb\xa1\xa3
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_180fb.dir\\Debug\\\\" /Fd"cmTC_180fb.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.27\\Modules\\CMakeCXXCompilerABI.cpp"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.36.32532\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\TinyRendererImplement-1\\CMakeFiles\\CMakeScratch\\TryCompile-ir7z0z\\Debug\\cmTC_180fb.exe" /INCREMENTAL /ILK:"cmTC_180fb.dir\\Debug\\cmTC_180fb.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/TinyRendererImplement-1/CMakeFiles/CMakeScratch/TryCompile-ir7z0z/Debug/cmTC_180fb.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/TinyRendererImplement-1/CMakeFiles/CMakeScratch/TryCompile-ir7z0z/Debug/cmTC_180fb.lib" /MACHINE:X64  /machine:x64 cmTC_180fb.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_180fb.vcxproj -> D:\\TinyRendererImplement-1\\CMakeFiles\\CMakeScratch\\TryCompile-ir7z0z\\Debug\\cmTC_180fb.exe
+        FinalizeBuildStatus:
+          \xd5\xfd\xd4\xdaɾ\xb3\xfd\xceļ\xfe\xa1\xb0cmTC_180fb.dir\\Debug\\cmTC_180fb.tlog\\unsuccessfulbuild\xa1\xb1\xa1\xa3
+          \xd5\xfd\xd4ڶԡ\xb0cmTC_180fb.dir\\Debug\\cmTC_180fb.tlog\\cmTC_180fb.lastbuildstate\xa1\xb1ִ\xd0\xd0 Touch \xc8\xce\xce\xf1\xa1\xa3
+        \xd2\xd1\xcd\xea\xb3\xc9\xc9\xfa\xb3\xc9\xcf\xeeĿ\xa1\xb0D:\\TinyRendererImplement-1\\CMakeFiles\\CMakeScratch\\TryCompile-ir7z0z\\cmTC_180fb.vcxproj\xa1\xb1(Ĭ\xc8\xcfĿ\xb1\xea)\xb5Ĳ\xd9\xd7\xf7\xa1\xa3
+        
+        \xd2ѳɹ\xa6\xc9\xfa\xb3ɡ\xa3
+            0 \xb8\xf6\xbe\xaf\xb8\xe6
+            0 \xb8\xf6\xb4\xed\xce\xf3
+        
+        \xd2\xd1\xd3\xc3ʱ\xbc\xe4 00:00:00.34
+        
+      exitCode: 0
+...

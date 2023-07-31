@@ -83,8 +83,8 @@ class Matrix {
     int rows, cols;
 public:
     Matrix(int r=DEFAULT_ALLOC, int c=DEFAULT_ALLOC);
-    inline int nrows();
-    inline int ncols();
+    int nrows();
+    int ncols();
 
     static Matrix identity(int dimensions);
     std::vector<float>& operator[](const int i);
