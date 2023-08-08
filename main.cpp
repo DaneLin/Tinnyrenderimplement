@@ -11,14 +11,14 @@ const TGAColor red = TGAColor(255, 0, 0, 255);
 const TGAColor green = TGAColor(0, 255, 0, 0);
 const TGAColor blue = TGAColor(0, 0, 255, 255);
 Model *model = NULL;
-const int width = 1024;
-const int height = 1024;
+const int width = 800;
+const int height = 800;
 const int depth = 255;
 
-Vec3f cameraPos(0, 5, 5);
-Vec3f centerPos(0, 0, 0);
+Vec3f cameraPos(2, 1, 3);
+Vec3f centerPos(0, 0, 1);
 Vec3f up(0, 1, 0);
-Vec3f light_dir(0, 0, 1);
+Vec3f light_dir(0, 1, 0);
 //计算重心坐标，返回1-u-v,u,v
 Vec3f barycentric(const Vec3f *pts, const Vec2f p)
 {
@@ -43,14 +43,14 @@ void texture_shading(Vec3f *pts, Vec2i *texs, TGAImage &image, Vec3f look_dir, f
     float min_y = std::min({pts[0].y, pts[1].y, pts[2].y});
     float max_y = std::max({pts[0].y, pts[1].y, pts[2].y});
 
-    int imageWidth = model->diffuse().get_width();
-
     for (int x = min_x; x <= max_x; x++)
     {
         for (int y = min_y; y <= max_y; y++)
         {
             Vec3f tmp_pt(x, y, 0);
-            auto [raw, alpha, beta, gamma] = barycentric(pts, Vec2f(x, y));//获取重心坐标对应的(1-u-v), u ,v;
+            auto bc = barycentric(pts, Vec2f(x, y));//获取重心坐标对应的(1-u-v), u ,v;
+
+            auto alpha = bc.x, beta = bc.y , gamma = bc.z;
             
             Vec2f tex_pt(0, 0);
             if (alpha < 0 || beta < 0 || gamma < 0)//如果有一个是负数，说明点不在三角形内
@@ -58,24 +58,27 @@ void texture_shading(Vec3f *pts, Vec2i *texs, TGAImage &image, Vec3f look_dir, f
 
             float w_reciprocal = 1 / (alpha + beta + gamma);
             float z_interpolated = alpha * pts[0].z + beta * pts[1].z + gamma * pts[2].z;
-            float x_interpolated = alpha * pts[0].x + beta * pts[1].x + gamma * pts[2].x;
-            float y_interpolated = alpha * pts[0].y + beta * pts[1].y + gamma * pts[2].y;
+            float x_interpolated = alpha * texs[0].x + beta * texs[1].x + gamma * texs[2].x;
+            float y_interpolated = alpha * texs[0].y + beta * texs[1].y + gamma * texs[2].y;
 
             z_interpolated *= w_reciprocal;
             x_interpolated *= w_reciprocal;
             y_interpolated *= w_reciprocal;
 
             //std::cout << z_interpolated << ' ' << x_interpolated << ' ' << y_interpolated << std::endl;
-            if((int)(x + y * width) > height * width) std::cout << "out of range" << std::endl;
+            //if((int)(x + y * width) > height * width) std::cout << "out of range" << std::endl;
             //std::cout << int(x + y * imageWidth) << std::endl;
-            if (zBuffer[(int)(x + y * width)] < z_interpolated)
+            int idx = x + y * width;
+            if (idx < 0 || idx >= width * height) continue;
+            if (zBuffer[idx] < z_interpolated)
             {
                 
-                // TGAColor tex_color = model->diffuse().get(x_interpolated, y_interpolated);
+                TGAColor tex_color = model->diffuse().get(x_interpolated, y_interpolated);
                 //std::cout << z_interpolated << ' ' << x_interpolated << ' ' << y_interpolated << std::endl;
-                zBuffer[(int)(x + y * width)] = z_interpolated;
+                zBuffer[idx] = z_interpolated;
                 //std::cout << "ok" << std::endl;
-                //image.set(tmp_pt.x, tmp_pt.y, TGAColor(rand() % 255 , rand()%255, rand()%255));
+                TGAColor random_color = TGAColor(rand() % 255 , rand()%255, rand()%255);
+                image.set(tmp_pt.x, tmp_pt.y, tex_color);
             }
         }
     }
@@ -145,7 +148,7 @@ Matrix model_trans()
 Matrix proj_to_ortho()
 {
     Matrix projection = Matrix::identity(4);
-    projection[3][2] = -1.0f / cameraPos.z;
+    projection[3][2] = -1.0f / (cameraPos - centerPos).norm();
     return projection;
 }
 
@@ -174,7 +177,7 @@ Matrix viewportMatrix(int x, int y, int w, int h)
 
 Vec3f homo_to_vert(Matrix m)
 {
-    return Vec3f(m[0][0], m[1][0], m[2][0]);
+    return Vec3f(m[0][0] / m[3][0], m[1][0] / m[3][0], m[2][0] / m[3][0]);
 }
 
 Matrix lookAt(Vec3f eye, Vec3f center, Vec3f up)
@@ -204,7 +207,6 @@ int main(int argc, char **argv)
     //进行MVP转换
     //Matrix _model = model_trans();
     Matrix _model = lookAt(cameraPos, centerPos, up);
-    Matrix _view = viewport_trans();
     Matrix _projection = proj_to_ortho();
     Matrix _viewport = viewportMatrix(width / 8 , height / 8, width * 3 / 4, height * 3 / 4);
 
@@ -227,10 +229,23 @@ int main(int argc, char **argv)
         for (int j = 0; j < 3; j++)
         {
             world_coords[j] = model->vert(face_verts[j]);
-            screen_coords[j] = homo_to_vert(_viewport * projection_division((_projection*_view*_model* convert_to_homo(world_coords[j])))) ;
+            screen_coords[j] = homo_to_vert(_viewport *((_projection*_model* convert_to_homo(world_coords[j])))) ;
             tex_coords[j] = model->uv(tex_verts[j]);
             norm_coords[j] = model->norm(norm_verts[j]);
         }
+
+        for (int j = 0 ; j < 3; j++)
+        {
+            std::cout << tex_coords[j] << ' ';
+        }
+        std::cout << std::endl;
+
+        std::cout << "Convert to world position\n";
+        for (int j = 0 ; j < 3; j++)
+        {
+            std::cout << screen_coords[j] << ' ';
+        }
+        std::cout << std::endl;
 
         //计算这个面的法线
         Vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
