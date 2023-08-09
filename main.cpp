@@ -15,8 +15,13 @@ const int width = 800;
 const int height = 800;
 const int depth = 255;
 
+<<<<<<< HEAD
 Vec3f cameraPos(5, 10, 20);
 Vec3f centerPos(0, 0, 0);
+=======
+Vec3f cameraPos(2, 1, 3);
+Vec3f centerPos(0, 0, 1);
+>>>>>>> 4a98ea76bee9d01233b23802c342de9321c1c94b
 Vec3f up(0, 1, 0);
 Vec3f light_dir(0, 1, 0);
 //计算重心坐标，返回1-u-v,u,v
@@ -236,6 +241,19 @@ int main(int argc, char **argv)
             tex_coords[j] = model->uv(tex_verts[j]);
             norm_coords[j] = model->norm(norm_verts[j]);
         }
+
+        for (int j = 0 ; j < 3; j++)
+        {
+            std::cout << tex_coords[j] << ' ';
+        }
+        std::cout << std::endl;
+
+        std::cout << "Convert to world position\n";
+        for (int j = 0 ; j < 3; j++)
+        {
+            std::cout << screen_coords[j] << ' ';
+        }
+        std::cout << std::endl;
 
         //计算这个面的法线
         Vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
