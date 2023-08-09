@@ -6,6 +6,7 @@
         "cctype": "cpp",
         "clocale": "cpp",
         "cmath": "cpp",
+        "complex": "cpp",
         "cstdarg": "cpp",
         "cstddef": "cpp",
         "cstdint": "cpp",
@@ -41,11 +42,6 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp",
-        "ios": "cpp",
-        "xiosbase": "cpp",
-        "xstring": "cpp",
-        "xutility": "cpp",
-        "complex": "cpp"
+        "typeinfo": "cpp"
     }
 }

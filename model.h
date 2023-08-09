@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "geometry.h"
+#include "tgaimage.h"
 
 class Model {
 private:
@@ -12,6 +13,7 @@ private:
 	std::vector<std::vector<int>> faces_;//每个面是如何组成的，对应的v，vt，vn
 	std::vector<std::vector<int>> fuvs_;
 	std::vector<std::vector<int>> fnorms_; 
+	TGAImage diffuseMap{};
 public:
 	Model(const char *filename);
 	~Model();
@@ -23,7 +25,8 @@ public:
 	std::vector<int> fuvs(int idx);
 	std::vector<int> fnorms(int idx);
 	std::vector<int> face(int idx);
-	
+	void read_model_texture(std::string filename, const std::string suffix, TGAImage &img);
+	TGAImage& diffuse() { return diffuseMap;  }
 };
 
 #endif //__MODEL_H__

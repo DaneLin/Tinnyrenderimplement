@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <cstdlib>
 #include "model.h"
 //构造函数
 /**
@@ -40,15 +41,12 @@ Model::Model(const char *filename) : verts_(), faces_() {
                 f.push_back(idx_f);
                 vt.push_back(idx_vt);
                 vn.push_back(idx_vn);
-                //std::cout << idx_f << ' ' << idx_vt << ' ' << idx_vn << std::endl;
             }
             faces_.push_back(f);
             fuvs_.push_back(vt);
             fnorms_.push_back(vn);
         } else if (!line.compare(0, 3, "vt ")) {
-            //std::cout << line << std::endl;
             iss >> trash >> trash;
-            //std::cout << trash << std::endl;
             Vec2f vt;
             float ftrash;
             for (int i = 0; i < 3; i++) 
@@ -56,32 +54,39 @@ Model::Model(const char *filename) : verts_(), faces_() {
                 if (i == 2)
                 {
                     iss >> ftrash;
-                    //std::cout << ftrash << std::endl;
                     continue;
                 } 
                 iss >> vt.raw[i];
-                //std::cout << vt.raw[i] << ' ';
             }
-            //std::cout << std::endl;
             uvs_.push_back(vt);
         } else if (!line.compare(0, 3, "vn ")) {
             iss >> trash >> trash;
-            //std::cout << trash << std::endl;
             Vec3f vn;
             for (int i = 0; i < 3; i++) 
             {
                 iss >> vn.raw[i];
-                //std::cout << vn.raw[i] << ' ';
             }
-            //std::cout << std::endl;
             norms_.push_back(vn);
         }
     }
     std::cerr << "# v# " << verts_.size() << " f# "  << faces_.size() << std::endl;
+    read_model_texture(filename, "_diffuse.tga", diffuseMap);
 }
 
 Model::~Model() {
 }
+
+void Model::read_model_texture(std::string filename, const std::string suffix, TGAImage &img)
+{
+    size_t dot = filename.find_last_of('.');
+    if (dot == std::string::npos) return;
+    std::string curFileName = filename.substr(0, dot) + suffix;
+    bool ok = img.read_tga_file(curFileName.c_str());
+    if(ok) std::cout << "loaded texture successfully"<< std::endl;
+    else std::cout << "读取纹理失败，检查文件名是否正确输入" << std::endl;
+    img.flip_vertically();
+}
+
 //返回模型顶点个数
 int Model::nverts() {
     return (int)verts_.size();
@@ -100,7 +105,8 @@ Vec3f Model::vert(int i) {
 }
 
 Vec2i Model::uv(int i) {
-    return Vec2i(uvs_[i].x * 1024,uvs_[i].y * 1024);
+    
+    return Vec2i(uvs_[i].x * diffuseMap.get_width() ,uvs_[i].y * diffuseMap.get_height());
 }
 
 Vec3f Model::norm(int i) {
