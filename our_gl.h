@@ -12,6 +12,8 @@ extern Matrix Projection;
 void viewport(int x, int y, int w, int h);
 void projection(float coeff = 0); // coeff = -1/c;
 void lookat(Vec3f eye, Vec3f center, Vec3f up);
+float interpolate(float p1, float p2, float p3, float alpha, float beta, float gamma);
+Vec3f barycentric(const Vec3f *pts, const Vec2f p);
 Matrix convert_to_homo(Vec3f v);
 Vec3f homo_to_vert(Matrix m);
 

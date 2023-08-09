@@ -82,8 +82,8 @@ void Model::read_model_texture(std::string filename, const std::string suffix, T
     if (dot == std::string::npos) return;
     std::string curFileName = filename.substr(0, dot) + suffix;
     bool ok = img.read_tga_file(curFileName.c_str());
-    if(ok) std::cout << "loaded texture successfully"<< std::endl;
-    else std::cout << "读取纹理失败，检查文件名是否正确输入" << std::endl;
+    if(ok) std::cout << "loaded texture successfully!"<< std::endl;
+    else std::cout << "failed to load texture!" << std::endl;
     img.flip_vertically();
 }
 
@@ -109,12 +109,13 @@ Vec3f Model::vert(int iface, int nthvert) {
 }
 
 Vec2i Model::uv(int i) {
-    
+    //std::cout << uvs_[i].x << ' ' << uvs_[i].y << std::endl;
     return Vec2i(uvs_[i].x * diffuseMap.get_width() ,uvs_[i].y * diffuseMap.get_height());
 }
 
 Vec2i Model::uv(int iface, int nthvert) {
-    return Vec2i(uvs_[faces_[iface][nthvert]].x * diffuseMap.get_width(), uvs_[faces_[iface][nthvert]].y * diffuseMap.get_width());
+    //std::cout << uvs_[faces_[iface][nthvert]].x << ' ' << uvs_[faces_[iface][nthvert]].y << std::endl;
+    return Vec2i(uvs_[fuvs_[iface][nthvert]].x * diffuseMap.get_width(), uvs_[fuvs_[iface][nthvert]].y * diffuseMap.get_height());
 }
 
 Vec3f Model::norm(int i) {
@@ -123,7 +124,7 @@ Vec3f Model::norm(int i) {
 
 Vec3f Model::norm(int iface, int nthvert)
 {
-    return norms_[faces_[iface][nthvert]];
+    return norms_[fnorms_[iface][nthvert]];
 }
 
 std::vector<int> Model::fuvs(int idx) {

@@ -88,27 +88,21 @@ void Shading(Vec3f *pts, IShader &shader, TGAImage &image, int *zbuffer)
     {
         for (int y = min_y; y <= max_y; y++)
         {
-            // std::cout << x << ' ' << y << std::endl;
             auto bc = barycentric(pts, Vec2f(x, y)); // 获取重心坐标对应的(1-u-v), u ,v;
-
             auto alpha = bc.x, beta = bc.y, gamma = bc.z;
 
-            if (alpha < 0 || beta < 0 || gamma < 0) // 如果有一个是负数，说明点不在三角形内
+            int idx = x + y * image.get_width();
+            if (alpha < 0 || beta < 0 || gamma < 0 || idx < 0) // 如果有一个是负数，说明点不在三角形内
                 continue;
-            
 
             float w_reciprocal = 1 / (alpha + beta + gamma);
-            float z_interpolated = alpha * pts[0].z + beta * pts[1].z + gamma * pts[2].z;
-            z_interpolated *= w_reciprocal;
-            
-
-            int idx = x + y * image.get_width();
-            if(idx < 0) continue;
+            float z_interpolated = (alpha * pts[0].z + beta * pts[1].z + gamma * pts[2].z) * w_reciprocal;
 
             if(zbuffer[idx] > z_interpolated) continue;
-            bool discard = shader.fragment(bc * w_reciprocal, color);
+            bool discard = shader.fragment(bc, color);
             if(!discard) 
                 zbuffer[idx] = z_interpolated;
+//                std::cout << x << ' ' << y << std::endl;
                 image.set(x, y, color);
             }
         }
