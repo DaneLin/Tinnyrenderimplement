@@ -104,13 +104,26 @@ Vec3f Model::vert(int i) {
     return verts_[i];
 }
 
+Vec3f Model::vert(int iface, int nthvert) {
+    return verts_[faces_[iface][nthvert]];
+}
+
 Vec2i Model::uv(int i) {
     
     return Vec2i(uvs_[i].x * diffuseMap.get_width() ,uvs_[i].y * diffuseMap.get_height());
 }
 
+Vec2i Model::uv(int iface, int nthvert) {
+    return Vec2i(uvs_[faces_[iface][nthvert]].x * diffuseMap.get_width(), uvs_[faces_[iface][nthvert]].y * diffuseMap.get_width());
+}
+
 Vec3f Model::norm(int i) {
     return norms_[i];
+}
+
+Vec3f Model::norm(int iface, int nthvert)
+{
+    return norms_[faces_[iface][nthvert]];
 }
 
 std::vector<int> Model::fuvs(int idx) {
@@ -120,4 +133,5 @@ std::vector<int> Model::fuvs(int idx) {
 std::vector<int> Model::fnorms(int idx) {
     return fnorms_[idx];
 }
+
 

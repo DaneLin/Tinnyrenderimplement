@@ -115,3 +115,12 @@ std::ostream& operator<<(std::ostream& s, Matrix& m) {
     }
     return s;
 }
+
+void Matrix::set_col(const int idx, const Vec2i & v)
+{
+    assert(idx >= 0 and idx < cols);
+    for (int i =0 ; i < rows; i++) 
+    {
+        m[i][idx] = v.raw[i];
+    }
+}
