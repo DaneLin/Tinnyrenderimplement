@@ -94,6 +94,7 @@ public:
     Matrix transpose();
     Matrix inverse();
     void set_col(const int idx, const Vec2i & v);
+    void set_col(const int idx, const Vec3f & v);
     friend std::ostream& operator<<(std::ostream& s, Matrix& m);
 };
 

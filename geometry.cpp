@@ -56,6 +56,7 @@ Matrix Matrix::operator*(const Matrix& a) {
     return result;
 }
 
+//转置
 Matrix Matrix::transpose() {
     Matrix result(cols, rows);
     for(int i=0; i<rows; i++)
@@ -63,7 +64,7 @@ Matrix Matrix::transpose() {
             result[j][i] = m[i][j];
     return result;
 }
-
+//计算矩阵的逆
 Matrix Matrix::inverse() {
     assert(rows==cols);
     // augmenting the square matrix with the identity matrix of the same dimensions A => [AI]
@@ -124,3 +125,13 @@ void Matrix::set_col(const int idx, const Vec2i & v)
         m[i][idx] = v.raw[i];
     }
 }
+
+void Matrix::set_col(const int idx, const Vec3f & v)
+{
+    assert(idx >= 0 and idx < cols);
+    for (int i =0 ; i < rows; i++) 
+    {
+        m[i][idx] = v.raw[i];
+    }
+}
+
