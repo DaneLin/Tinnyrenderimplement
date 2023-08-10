@@ -71,6 +71,8 @@ Model::Model(const char *filename) : verts_(), faces_() {
     }
     std::cerr << "# v# " << verts_.size() << " f# "  << faces_.size() << std::endl;
     read_model_texture(filename, "_diffuse.tga", diffuseMap);
+    read_model_texture(filename, "_nm.tga", normalMap);
+    read_model_texture(filename, "_nm_tangent.tga", tangentMap);
 }
 
 Model::~Model() {
@@ -82,7 +84,7 @@ void Model::read_model_texture(std::string filename, const std::string suffix, T
     if (dot == std::string::npos) return;
     std::string curFileName = filename.substr(0, dot) + suffix;
     bool ok = img.read_tga_file(curFileName.c_str());
-    if(ok) std::cout << "loaded texture successfully!"<< std::endl;
+    if(ok) std::cout << "loaded " << curFileName << " successfully!"<< std::endl;
     else std::cout << "failed to load texture!" << std::endl;
     img.flip_vertically();
 }
@@ -133,6 +135,29 @@ std::vector<int> Model::fuvs(int idx) {
 
 std::vector<int> Model::fnorms(int idx) {
     return fnorms_[idx];
+}
+
+Vec3f Model::normal(int x, int y)
+{
+    TGAColor color = normalMap.get(x, y);//潜在问题，法线贴图和纹理贴图的大小不一样
+    Vec3f res;
+    for (int i = 0; i < 3; i++)
+    {   
+        //法线从-1~0,而纹理从0~1
+        //tgaimage中颜色存储顺序变化
+        res[2 - i] = (float)color[i]/255.f * 2.f -1.f;
+    }
+    return res;
+}
+
+Vec3f Model::tangent(int x, int y)
+{
+    TGAColor color = tangentMap.get(x, y);
+    Vec3f res;
+    for (int i = 0; i < 3; i++)
+    {
+        res[2 - i] = (float)color[i]/255.f * 2.f -1.f;
+    }
 }
 
 
