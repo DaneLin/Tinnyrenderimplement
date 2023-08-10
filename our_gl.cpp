@@ -17,6 +17,7 @@ void viewport(int x, int y, int w, int h)
     Viewport[0][3] = x + w / 2.f;
     Viewport[1][3] = y + h / 2.f;
     Viewport[2][3] = 255 / 2.f;
+    
     Viewport[0][0] = w / 2.f;
     Viewport[1][1] = h / 2.f;
     Viewport[2][2] = 255 / 2.f;
@@ -25,7 +26,7 @@ void viewport(int x, int y, int w, int h)
 void projection(float coeff)
 {
     Projection = Matrix::identity(4);
-    Projection[3][2] = coeff;
+    Projection[3][2] = -1.f / coeff;
 }
 
 void lookat(Vec3f eye, Vec3f center, Vec3f up)
@@ -34,14 +35,20 @@ void lookat(Vec3f eye, Vec3f center, Vec3f up)
     Vec3f x = (z ^ up).normalize();
     Vec3f y = (x ^ z).normalize();
     ModelView = Matrix::identity(4);
-
+    Matrix rotation = Matrix::identity(4);
+    Matrix translation = Matrix::identity(4);
     for (int i = 0; i < 3; i++)
     {
+        // rotation[0][i] = x[i];
+        // rotation[1][i] = y[i];
+        // rotation[2][i] = z[i];
+        // translation[i][3] = -center[i];
         ModelView[0][i] = x[i];
         ModelView[1][i] = y[i];
         ModelView[2][i] = z[i];
         ModelView[i][3] = -center[i];
     }
+    //ModelView = rotation * translation;
 }
 
 Vec3f barycentric(const Vec3f *pts, const Vec2f p)

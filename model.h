@@ -14,6 +14,8 @@ private:
 	std::vector<std::vector<int>> fuvs_;
 	std::vector<std::vector<int>> fnorms_; 
 	TGAImage diffuseMap;
+	TGAImage normalMap;
+	TGAImage tangentMap;
 public:
 	Model(const char *filename);
 	~Model();
@@ -30,7 +32,9 @@ public:
 	std::vector<int> fnorms(int idx);
 	std::vector<int> face(int idx);
 	void read_model_texture(std::string filename, const std::string suffix, TGAImage &img);
-	TGAColor diffuse(int x, int y) { return diffuseMap.get(x, y);  }
+	TGAColor diffuse(int x, int y) { return diffuseMap.get(x, y); };
+	Vec3f normal(int x, int y);
+	Vec3f tangent(int x, int y);
 };
 
 #endif //__MODEL_H__
