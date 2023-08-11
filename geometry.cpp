@@ -56,6 +56,18 @@ Matrix Matrix::operator*(const Matrix& a) {
     return result;
 }
 
+Vec3f Matrix::operator*(const Vec3f& a) {
+    Vec3f tmp;
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            tmp[i] += m[i][j] * a.raw[j];
+        }
+    }
+    return tmp;
+}
+
 //转置
 Matrix Matrix::transpose() {
     Matrix result(cols, rows);

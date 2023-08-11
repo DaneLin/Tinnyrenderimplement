@@ -73,6 +73,7 @@ Model::Model(const char *filename) : verts_(), faces_() {
     read_model_texture(filename, "_diffuse.tga", diffuseMap);
     read_model_texture(filename, "_nm.tga", normalMap);
     read_model_texture(filename, "_nm_tangent.tga", tangentMap);
+    read_model_texture(filename, "_spec.tga", specularMap);
 }
 
 Model::~Model() {
@@ -158,6 +159,13 @@ Vec3f Model::tangent(int x, int y)
     {
         res[2 - i] = (float)color[i]/255.f * 2.f -1.f;
     }
+    return res;
 }
 
+float Model::specular(int iface, int nthvert)
+{
+    Vec2i uv(iface, nthvert);
+    
+    return specularMap.get(uv.x, uv.y).bgra[0]/1.f;
+}
 

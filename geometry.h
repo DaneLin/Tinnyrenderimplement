@@ -91,6 +91,7 @@ public:
     static Matrix identity(int dimensions);
     std::vector<float>& operator[](const int i);
     Matrix operator*(const Matrix& a);
+    Vec3f operator*(const Vec3f& a);
     Matrix transpose();
     Matrix inverse();
     void set_col(const int idx, const Vec2i & v);
@@ -99,5 +100,6 @@ public:
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 #endif //__GEOMETRY_H__

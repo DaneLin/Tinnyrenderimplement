@@ -10,12 +10,13 @@ private:
 	std::vector<Vec3f> verts_;
 	std::vector<Vec2f> uvs_;
 	std::vector<Vec3f> norms_;
-	std::vector<std::vector<int>> faces_;//每个面是如何组成的，对应的v，vt，vn
-	std::vector<std::vector<int>> fuvs_;
-	std::vector<std::vector<int>> fnorms_; 
+	std::vector<std::vector<int> > faces_;//每个面是如何组成的，对应的v，vt，vn
+	std::vector<std::vector<int> > fuvs_;
+	std::vector<std::vector<int> > fnorms_; 
 	TGAImage diffuseMap;
 	TGAImage normalMap;
 	TGAImage tangentMap;
+	TGAImage specularMap;
 public:
 	Model(const char *filename);
 	~Model();
@@ -35,6 +36,7 @@ public:
 	TGAColor diffuse(int x, int y) { return diffuseMap.get(x, y); };
 	Vec3f normal(int x, int y);
 	Vec3f tangent(int x, int y);
+	float specular(int iface, int nthvert);
 };
 
 #endif //__MODEL_H__

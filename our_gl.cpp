@@ -26,7 +26,7 @@ void viewport(int x, int y, int w, int h)
 void projection(float coeff)
 {
     Projection = Matrix::identity(4);
-    Projection[3][2] = -1.f / coeff;
+    Projection[3][2] = coeff;
 }
 
 void lookat(Vec3f eye, Vec3f center, Vec3f up)
@@ -82,7 +82,7 @@ Vec3f homo_to_vert(Matrix m)
     return Vec3f(m[0][0] / m[3][0], m[1][0] / m[3][0], m[2][0] / m[3][0]);
 }
 
-void Shading(Vec3f *pts, IShader &shader, TGAImage &image, int *zbuffer)
+void Shading(Vec3f *pts, IShader &shader, TGAImage &image, float *zbuffer)
 {
     int min_x = std::min(pts[0].x, std::min(pts[1].x, pts[2].x));
     int max_x = std::max(pts[0].x, std::max(pts[1].x, pts[2].x));

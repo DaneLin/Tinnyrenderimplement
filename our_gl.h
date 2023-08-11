@@ -24,6 +24,6 @@ struct IShader{
 };
 
 void triangle(Vec3f *pts, IShader &shader, TGAImage &image, TGAImage &zbuffer);
-void Shading(Vec3f *pts, IShader &shader, TGAImage &image,int *zbuffer);
+void Shading(Vec3f *pts, IShader &shader, TGAImage &image,float *zbuffer);
 
 #endif //__OUR_GL_H__
