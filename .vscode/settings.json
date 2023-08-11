@@ -1,12 +1,13 @@
 {
+    "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
+        "vector": "cpp",
         "array": "cpp",
         "atomic": "cpp",
         "*.tcc": "cpp",
         "cctype": "cpp",
         "clocale": "cpp",
         "cmath": "cpp",
-        "complex": "cpp",
         "cstdarg": "cpp",
         "cstddef": "cpp",
         "cstdint": "cpp",
@@ -18,7 +19,6 @@
         "cwctype": "cpp",
         "deque": "cpp",
         "unordered_map": "cpp",
-        "vector": "cpp",
         "exception": "cpp",
         "algorithm": "cpp",
         "iterator": "cpp",

@@ -56,6 +56,19 @@ Matrix Matrix::operator*(const Matrix& a) {
     return result;
 }
 
+Vec3f Matrix::operator*(const Vec3f& a) {
+    Vec3f tmp;
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            tmp[i] += m[i][j] * a.raw[j];
+        }
+    }
+    return tmp;
+}
+
+//转置
 Matrix Matrix::transpose() {
     Matrix result(cols, rows);
     for(int i=0; i<rows; i++)
@@ -63,7 +76,7 @@ Matrix Matrix::transpose() {
             result[j][i] = m[i][j];
     return result;
 }
-
+//计算矩阵的逆
 Matrix Matrix::inverse() {
     assert(rows==cols);
     // augmenting the square matrix with the identity matrix of the same dimensions A => [AI]
@@ -115,3 +128,22 @@ std::ostream& operator<<(std::ostream& s, Matrix& m) {
     }
     return s;
 }
+
+void Matrix::set_col(const int idx, const Vec2i & v)
+{
+    assert(idx >= 0 and idx < cols);
+    for (int i =0 ; i < rows; i++) 
+    {
+        m[i][idx] = v.raw[i];
+    }
+}
+
+void Matrix::set_col(const int idx, const Vec3f & v)
+{
+    assert(idx >= 0 and idx < cols);
+    for (int i =0 ; i < rows; i++) 
+    {
+        m[i][idx] = v.raw[i];
+    }
+}
+

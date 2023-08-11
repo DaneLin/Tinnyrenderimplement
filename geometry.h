@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <vector>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -23,6 +24,7 @@ template <class t> struct Vec2 {
     Vec2<t> operator +(const Vec2<t> &V) const { return Vec2<t>(x+V.x, y+V.y); }
     Vec2<t> operator -(const Vec2<t> &V) const { return Vec2<t>(x-V.x, y-V.y); }
     Vec2<t> operator *(float f)          const { return Vec2<t>(x*f, y*f); }
+    t operator ^(const Vec2<t> &v) const { return x * v.y - y * v.x;}
     t& operator[](const int i) {return raw[i];}
     template <class > friend std::ostream& operator<<(std::ostream& s, Vec2<t>& v);
 };
@@ -89,12 +91,15 @@ public:
     static Matrix identity(int dimensions);
     std::vector<float>& operator[](const int i);
     Matrix operator*(const Matrix& a);
+    Vec3f operator*(const Vec3f& a);
     Matrix transpose();
     Matrix inverse();
-
+    void set_col(const int idx, const Vec2i & v);
+    void set_col(const int idx, const Vec3f & v);
     friend std::ostream& operator<<(std::ostream& s, Matrix& m);
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 #endif //__GEOMETRY_H__

@@ -2,273 +2,304 @@
 #include <vector>
 #include <cmath>
 #include "model.h"
+// #include "geometry.h"
 #include "geometry.h"
+#include "our_gl.h"
 #include <algorithm>
 #include <iostream>
 
-const TGAColor white = TGAColor(255, 255, 255, 255);
-const TGAColor red = TGAColor(255, 0, 0, 255);
-const TGAColor green = TGAColor(0, 255, 0, 0);
-const TGAColor blue = TGAColor(0, 0, 255, 255);
-Model *model = NULL;
 const int width = 800;
 const int height = 800;
+Model *model = NULL;
 const int depth = 255;
+const char *model_path = "../obj/diablo3/diablo3_pose.obj";
+const char *image_path = "../output/output_african_head_Depth.tga";
+float *shadowBuffer;
 
-<<<<<<< HEAD
-Vec3f cameraPos(5, 10, 20);
+Vec3f cameraPos(0, 10, 5);
 Vec3f centerPos(0, 0, 0);
-=======
-Vec3f cameraPos(2, 1, 3);
-Vec3f centerPos(0, 0, 1);
->>>>>>> 4a98ea76bee9d01233b23802c342de9321c1c94b
 Vec3f up(0, 1, 0);
-Vec3f light_dir(0, 1, 0);
-//计算重心坐标，返回1-u-v,u,v
-Vec3f barycentric(const Vec3f *pts, const Vec2f p)
+Vec3f light_dir(-1, 1, 1);
+
+std::vector<float> calc_diff(const std::vector<float> &a, const std::vector<float> &b)
 {
-    Vec3f pos = Vec3f(pts[1].x - pts[0].x, pts[2].x - pts[0].x, pts[0].x - p.x) ^ Vec3f(pts[1].y - pts[0].y, pts[2].y - pts[0].y, pts[0].y - p.y);
-
-    if (std::abs(pos.z) < 1)
-        return Vec3f(-1, 1, 1);
-
-    return Vec3f(1.f - (pos.x + pos.y) / pos.z, pos.x / pos.z, pos.y / pos.z);
-}
-
-Vec3f world_to_screen(Vec3f v)
-{
-    return Vec3f(int((v.x + 1.) * width / 2. + .5), int((v.y + 1.) * height / 2. + .5), v.z);
-}
-
-void texture_shading(Vec3f *pts, Vec2i *texs, TGAImage &image, Vec3f look_dir, float *zBuffer)
-{
-    // 首先获取对应的Bounding Box
-    float min_x = std::min({pts[0].x, pts[1].x, pts[2].x});
-    float max_x = std::max({pts[0].x, pts[1].x, pts[2].x});
-    float min_y = std::min({pts[0].y, pts[1].y, pts[2].y});
-    float max_y = std::max({pts[0].y, pts[1].y, pts[2].y});
-
-    for (int x = min_x; x <= max_x; x++)
+    int size = a.size();
+    std::vector<float> res(size);
+    for (int i = 0; i < size; i++)
     {
-        for (int y = min_y; y <= max_y; y++)
-        {
-            Vec3f tmp_pt(x, y, 0);
-            auto bc = barycentric(pts, Vec2f(x, y));//获取重心坐标对应的(1-u-v), u ,v;
-
-            auto alpha = bc.x, beta = bc.y , gamma = bc.z;
-            
-            Vec2f tex_pt(0, 0);
-            if (alpha < 0 || beta < 0 || gamma < 0)//如果有一个是负数，说明点不在三角形内
-                continue;
-
-            float w_reciprocal = 1 / (alpha + beta + gamma);
-            float z_interpolated = alpha * pts[0].z + beta * pts[1].z + gamma * pts[2].z;
-            float x_interpolated = alpha * texs[0].x + beta * texs[1].x + gamma * texs[2].x;
-            float y_interpolated = alpha * texs[0].y + beta * texs[1].y + gamma * texs[2].y;
-
-            z_interpolated *= w_reciprocal;
-            x_interpolated *= w_reciprocal;
-            y_interpolated *= w_reciprocal;
-
-            //std::cout << z_interpolated << ' ' << x_interpolated << ' ' << y_interpolated << std::endl;
-            //if((int)(x + y * width) > height * width) std::cout << "out of range" << std::endl;
-            //std::cout << int(x + y * imageWidth) << std::endl;
-            int idx = x + y * width;
-            if (idx < 0 || idx >= width * height) continue;
-            if (zBuffer[idx] < z_interpolated)
-            {
-                
-                TGAColor tex_color = model->diffuse().get(x_interpolated, y_interpolated);
-                //std::cout << z_interpolated << ' ' << x_interpolated << ' ' << y_interpolated << std::endl;
-                zBuffer[idx] = z_interpolated;
-                //std::cout << "ok" << std::endl;
-                TGAColor random_color = TGAColor(rand() % 255 , rand()%255, rand()%255);
-                image.set(tmp_pt.x, tmp_pt.y, tex_color);
-            }
-        }
+        res[i] = a[i] - b[i];
     }
-}
-
-void Gouraud_Shading(Vec3f *pts, Vec3f *vns, TGAImage &image, Vec3f look_dir, float *zBuffer)
-{
-    // std::cout << "It's going to paint the image" << std::endl;
-    int min_x = std::min({pts[0].x, pts[1].x, pts[2].x});
-    int max_x = std::max({pts[0].x, pts[1].x, pts[2].x});
-    int min_y = std::min({pts[0].y, pts[1].y, pts[2].y});
-    int max_y = std::max({pts[0].y, pts[1].y, pts[2].y});
-    std::cout << min_x << ' ' << max_x << ' ' << min_y << ' ' << max_y << std::endl;
-
-    for (int x = min_x; x <= max_x; x++)
-    {
-        for (int y = min_y; y <= max_y; y++)
-        {
-            // std::cout << x << ' ' << y << std::endl;
-            auto barycentic_pos = barycentric(pts, Vec2f(x, y));
-
-            if (barycentic_pos.x < -.01 or barycentic_pos.y < -.01 or barycentic_pos.z < -.01)
-                continue;
-
-            float z = 0;
-            float intensity = 0;
-            for (int i = 0; i < 3; i++)
-            {
-                z += barycentic_pos[i] * pts[i].z;
-                intensity += (look_dir * vns[i].normalize()) * barycentic_pos[i];
-            }
-            // std::cout << (int)(x + y * width) << std::endl;
-            if (zBuffer[(int)(x + y * width)] < z)
-            {
-                zBuffer[(int)(x + y * width)] = z;
-                // std::cout << intensity << std::endl;
-                image.set(x, y, TGAColor(255 * intensity, 255 * intensity, 255 * intensity));
-            }
-        }
-    }
-}
-
-/**
- * params：Vec3f v
- * 考虑到涉及三维空间中的变换，需要一个函数将v变为对应的齐次坐标
- */
-Matrix convert_to_homo(Vec3f v)
-{
-    Matrix res(4, 1);
-    res[0][0] = v.x;
-    res[1][0] = v.y;
-    res[2][0] = v.z;
-    res[3][0] = 1;
     return res;
 }
 
-Matrix viewport_trans()
+struct GouraudShader : public IShader
 {
-    return Matrix::identity(4);
-}
+    Vec3f varying_intensity;
 
-Matrix model_trans()
-{
-    return Matrix::identity(4);
-}
-
-Matrix proj_to_ortho()
-{
-    Matrix projection = Matrix::identity(4);
-    projection[3][2] = -1.0f / (cameraPos - centerPos).norm();
-    return projection;
-}
-
-Matrix projection_division(Matrix m)
-{
-    // std::cout << m[3][0] << std::endl;
-    m[0][0] = m[0][0] / m[3][0];
-    m[1][0] = m[1][0] / m[3][0];
-    m[2][0] = m[2][0] / m[3][0];
-    m[3][0] = 1.f;
-    return m;
-}
-
-Matrix viewportMatrix(int x, int y, int w, int h)
-{
-    Matrix m = Matrix::identity(4);
-    m[0][3] = x + w / 2.f;
-    m[1][3] = y + h / 2.f;
-    m[2][3] = depth / 2.f;
-
-    m[0][0] = w / 2.f;
-    m[1][1] = h / 2.f;
-    m[2][2] = depth / 2.f;
-    return m;
-}
-
-Vec3f homo_to_vert(Matrix m)
-{
-    return Vec3f(m[0][0] / m[3][0], m[1][0] / m[3][0], m[2][0] / m[3][0]);
-}
-
-Matrix lookAt(Vec3f eye, Vec3f center, Vec3f up)
-{
-    Vec3f z = (eye - center).normalize();
-    Vec3f x = (up ^ z).normalize();
-    Vec3f y = (z ^ x).normalize();
-
-    Matrix res = Matrix::identity(4);
-    Matrix rotation = Matrix::identity(4);
-    Matrix translation = Matrix::identity(4);
-
-    for (int i = 0; i < 3; i++)
+    virtual Vec3f vertex(int iface, int nthvert)
     {
-        rotation[0][i] = x[i];
-        rotation[1][i] = y[i];
-        rotation[2][i] = z[i];
-        translation[i][3] = -center[i];
+        Vec3f gl_vert = model->vert(iface, nthvert);
+        gl_vert = homo_to_vert(Viewport * Projection * ModelView * convert_to_homo(gl_vert));
+        varying_intensity[nthvert] = std::max(0.f, model->norm(iface, nthvert) * light_dir);
+        return gl_vert;
     }
-    res = rotation * translation;
 
-    return res;
-}
+    virtual bool fragment(Vec3f bar, TGAColor &color)
+    {
+        float intensity = varying_intensity * bar;
+        color = TGAColor(255, 255, 255) * intensity;
+        return false;
+    }
+};
+
+struct TextureShader : public IShader
+{
+    Vec3f varying_intensity;
+    Matrix varying_uv = Matrix(2, 3);
+
+    virtual Vec3f vertex(int iface, int nthvert)
+    {
+        Vec3f gl_vert = model->vert(iface, nthvert);
+        gl_vert = homo_to_vert(Viewport * Projection * ModelView * convert_to_homo(gl_vert));
+        varying_intensity[nthvert] = std::max(0.f, model->norm(iface, nthvert) * light_dir);
+        varying_uv.set_col(nthvert, model->uv(iface, nthvert));
+        return gl_vert;
+    }
+
+    virtual bool fragment(Vec3f bar, TGAColor &color)
+    {
+        Matrix tmp(3, 1);
+        for (int i = 0; i < 3; i++)
+            tmp[i][0] = bar[i];
+        float intensity = varying_intensity * bar;
+        Matrix uv = varying_uv * tmp;
+        color = model->diffuse(uv[0][0], uv[1][0]) * intensity;
+        return false;
+    }
+};
+
+// interpret RGB values as xyz direction
+struct NormalMappintShader : public IShader
+{
+    Matrix varying_uv = Matrix(2, 3);
+    Vec3f varying_nm;
+
+    virtual Vec3f vertex(int iface, int nthvert)
+    {
+        Vec3f gl_vert = model->vert(iface, nthvert);
+        gl_vert = homo_to_vert(Viewport * Projection * ModelView * convert_to_homo(gl_vert));
+        varying_uv.set_col(nthvert, model->uv(iface, nthvert));
+        return gl_vert;
+    }
+
+    virtual bool fragment(Vec3f bar, TGAColor &color)
+    {
+        Matrix tmp(3, 1);
+        for (int i = 0; i < 3; i++)
+            tmp[i][0] = bar[i];
+        Matrix uv = varying_uv * tmp;
+        varying_nm = model->normal(uv[0][0], uv[1][0]).normalize();
+        auto intensity = varying_nm * light_dir;
+        color = model->diffuse(uv[0][0], uv[1][0]) * intensity;
+        return false;
+    }
+};
+
+// 使用法线空间法线贴图
+struct NormalTangentShader : public IShader
+{
+    Matrix varying_uv = Matrix(2, 3);  // 存储顶点UV坐标，顶点着色器写入，片元着色器读取
+    Matrix varying_tri = Matrix(3, 3); // 存储顶点裁剪空间坐标
+    Matrix varying_nrm = Matrix(3, 3); // 存储顶点法线
+    Matrix ndc_tri = Matrix(3, 3);     // 存储顶点归一化的设备坐标，用于切线空间计算
+
+    virtual Vec3f vertex(int iface, int nthvert)
+    {
+        // 读取顶点uv坐标
+        varying_uv.set_col(nthvert, model->uv(iface, nthvert));
+        // 将顶点法线转换到view space
+        varying_nrm.set_col(nthvert, homo_to_vert((Projection * ModelView).inverse().transpose() * convert_to_homo(model->normal(iface, nthvert))));
+        // 获取裁剪空间坐标
+        Vec3f gl_vert = model->vert(iface, nthvert);
+        gl_vert = homo_to_vert(Viewport * Projection * ModelView * convert_to_homo(gl_vert));
+        varying_tri.set_col(nthvert, gl_vert);
+        ndc_tri.set_col(nthvert, gl_vert);
+
+        return gl_vert;
+    }
+
+    virtual bool fragment(Vec3f bar, TGAColor &color)
+    {
+        // 插值顶点法线
+        Vec3f bn = (varying_nrm * bar).normalize();
+        // 插值顶点uv
+        Vec3f uv = varying_uv * bar;
+
+        // // 计算切线空间到观察空间的变换矩阵
+        // Matrix A(3, 3);
+        // A[0] = calc_diff(ndc_tri[1], ndc_tri[0]);
+        // A[1] = calc_diff(ndc_tri[2], ndc_tri[0]);
+        // for (int i = 0; i < 3; i++)
+        // {
+        //     A[2][i] = bn.raw[i];
+        // }
+        // Matrix AI = A.inverse();
+
+        // // 利用UV计算切线空间基
+        // Vec3f i = AI * Vec3f(varying_uv[0][1] - varying_uv[0][0], varying_uv[0][2] - varying_uv[0][0], 0);
+        // Vec3f j = AI * Vec3f(varying_uv[1][1] - varying_uv[1][0], varying_uv[1][2] - varying_uv[1][0], 0);
+
+        // Matrix B(3);
+        // B.set_col(0, i.normalize());
+        // B.set_col(1, j.normalize());
+        // B.set_col(2, bn);
+
+        // Vec3f n = (B * model->normal(uv.x, uv.y)).normalize();
+
+        // 光照计算
+        float diff = std::max(0.f, bn * light_dir);
+        color = model->diffuse(uv.x, uv.y) * diff;
+        return false;
+    }
+};
+
+struct Shader : public IShader
+{
+    Matrix varying_uv = Matrix(2, 3);
+    Matrix uniform_M = Matrix(4, 4);   // Projection * ModelView
+    Matrix uniform_MIT = Matrix(4, 4); // 转换矩阵的逆转置
+    Matrix uniform_Mshadow = Matrix(4, 4);
+    Matrix varying_tri = Matrix(3, 3);
+
+    Shader(Matrix M, Matrix MIT, Matrix MS) : uniform_M(M), uniform_MIT(MIT), uniform_Mshadow(MS), varying_tri(), varying_uv() {}
+
+    virtual Vec3f vertex(int iface, int nthvert)
+    {
+        Vec3f gl_vert = model->vert(iface, nthvert);
+        gl_vert = homo_to_vert(Viewport * Projection * ModelView * convert_to_homo(gl_vert));
+        varying_uv.set_col(nthvert, model->uv(iface, nthvert));
+        varying_tri.set_col(nthvert, gl_vert);
+        return gl_vert;
+    }
+
+    virtual bool fragment(Vec3f bar, TGAColor &color)
+    {
+        Vec3f sb_p = homo_to_vert(uniform_Mshadow * convert_to_homo(varying_tri * bar));
+        int idx = (int)sb_p.x + (int)sb_p.y * width;
+        float shadow = .3f + .7f * (shadowBuffer[idx] < sb_p.z +43.34);//magic coeff to avoid z-fighting
+        Vec3f uv = varying_uv * bar;
+        Vec3f n = homo_to_vert(uniform_MIT * convert_to_homo(model->normal(uv.x, uv.y))).normalize();
+        Vec3f l = homo_to_vert(uniform_M * convert_to_homo(light_dir)).normalize();
+        Vec3f r = (n * (n * l * 2.f) - l).normalize();
+        float spec = std::pow(std::max(r.z, 0.0f), model->specular(uv.x, uv.y));
+        float diff = std::max(0.f, n * l);
+        color = model->diffuse(uv.x, uv.y);
+
+        for (int i = 0; i < 3; i++)
+        {
+            color[i] = std::min<float>(20 + color[i] * shadow * (1.2 * diff + .6f * spec), 255);
+        }
+
+        return false;
+    }
+};
+
+struct DepthShader : public IShader
+{
+    Matrix varying_tri = Matrix(3, 3);
+
+    virtual Vec3f vertex(int iface, int nthvert)
+    {
+        Vec3f gl_vert = model->vert(iface, nthvert);
+        gl_vert = homo_to_vert(Viewport * Projection * ModelView * convert_to_homo(gl_vert));
+
+        varying_tri.set_col(nthvert, gl_vert);
+        return gl_vert;
+    }
+
+    virtual bool fragment(Vec3f bar, TGAColor &color)
+    {
+        Vec3f p = varying_tri * bar;
+        color = TGAColor(255, 255, 255) * (p.z / depth);
+        return false;
+    }
+};
 
 int main(int argc, char **argv)
 {
-    TGAImage image(width, height,TGAImage::RGB);
-    model = new Model("../obj/floor.obj");
+    // if (argc < 2) {
+    //     std::cerr << "Please use obj file" << std::endl;
+    //     return 1;
+    // }
 
-    //进行MVP转换
-    //Matrix _model = model_trans();
-    Matrix _model = lookAt(cameraPos, centerPos, up);
-    Matrix _projection = proj_to_ortho();
-    Matrix _viewport = viewportMatrix(width / 8 , height / 8, width * 3 / 4, height * 3 / 4);
+    // 设置图片的大小和颜色通道
+    TGAImage image(width, height, TGAImage::RGB);
+    
+    // 读取模型
+    model = new Model(model_path);
 
+    // 设置MVP矩阵
+    lookat(cameraPos, centerPos, up);
+    viewport(width / 8, height / 8, width * 3 / 4, height * 3 / 4);
+    projection((cameraPos - centerPos).norm());
+    light_dir = homo_to_vert(Projection * ModelView * convert_to_homo(light_dir)).normalize(); // 转换到相机空间
+
+    // 初始化zBuffer和shadowbuffer数组
     float *zBuffer = new float[width * height];
+    shadowBuffer = new float[width * height];
     for (int i = 0; i < width * height; i++)
     {
-        zBuffer[i] = std::numeric_limits<float>::min();
+        zBuffer[i] = shadowBuffer[i] = std::numeric_limits<float>::min();
     }
 
-    for (int idx = 0; idx < model->nfaces(); idx++) 
-    {
-        std::vector<int> face_verts = model->face(idx);
-        std::vector<int> tex_verts = model->fuvs(idx);
-        std::vector<int> norm_verts = model->fnorms(idx);
-        Vec3f world_coords[3];
+    {//设置shadowbuffer
+        TGAImage depth(width, height, TGAImage::RGB);
+        lookat(light_dir, centerPos, up);
+        viewport(width / 8, height / 8, width * 3 / 4, height * 3 / 4);
+        projection(0);
+
+        DepthShader depthShader;
         Vec3f screen_coords[3];
-        Vec2i tex_coords[3];
-        Vec3f norm_coords[3];
-
-        for (int j = 0; j < 3; j++)
+        for (int i = 0; i < model->nfaces(); i++)
         {
-            world_coords[j] = model->vert(face_verts[j]);
-            screen_coords[j] = homo_to_vert(_viewport *((_projection*_model* convert_to_homo(world_coords[j])))) ;
-            tex_coords[j] = model->uv(tex_verts[j]);
-            norm_coords[j] = model->norm(norm_verts[j]);
+            for (int j = 0; j < 3; j++)
+            {
+                screen_coords[j] = depthShader.vertex(i, j);
+            }
+            Shading(screen_coords, depthShader, depth, shadowBuffer);
         }
-
-        for (int j = 0 ; j < 3; j++)
-        {
-            std::cout << tex_coords[j] << ' ';
-        }
-        std::cout << std::endl;
-
-        std::cout << "Convert to world position\n";
-        for (int j = 0 ; j < 3; j++)
-        {
-            std::cout << screen_coords[j] << ' ';
-        }
-        std::cout << std::endl;
-
-        //计算这个面的法线
-        Vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
-        n.normalize();
-        float intensity = n * light_dir;
-        texture_shading(screen_coords, tex_coords, image, light_dir, zBuffer);
+        depth.flip_vertically();
+        depth.flip_horizontally();
+        std::cout << "It's going to paint depth" << std::endl;
+        depth.write_tga_file("depth.tga");
     }
 
-    std::cout << "It's going to set the image." << std::endl;
-    image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
-    image.write_tga_file("../output_floor_diffuse.tga");
+    Matrix M = Viewport * Projection * ModelView;
+
+    {
+        TGAImage frame(width, height, TGAImage::RGB);
+        lookat(cameraPos, centerPos, up);
+        viewport(width / 8, height / 8, width * 3 / 4, height * 3 / 4);
+        projection(-1.f / (cameraPos - centerPos).norm());
+
+        Shader shader(ModelView, (Projection * ModelView).inverse().transpose(), M * (Viewport * Projection * ModelView).inverse());
+        Vec3f screen_coords[3];
+        for (int i = 0; i < model->nfaces(); i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                screen_coords[j] = shader.vertex(i, j);
+            }
+            Shading(screen_coords, shader, frame, zBuffer);
+        }
+        frame.flip_vertically();
+        frame.flip_horizontally();
+        std::cout << "It's going to paint frame" << std::endl;
+        frame.write_tga_file("framebuffer.tga");
+    }
 
     delete model;
     delete[] zBuffer;
-
 
     return 0;
 }
